@@ -16,7 +16,7 @@ model user {
 }
 
 model note {
-  noteId       Int    @id
+  noteId       Int    @id @default(autoincrement())
   noteContent  String
   noteType     Int
   userNickname String
