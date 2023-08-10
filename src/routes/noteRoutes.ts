@@ -1,11 +1,10 @@
 import { Router } from 'express'
-import { Response, Request } from 'express'
-import Note from '../models/Note'
+import noteController from '../controllers/noteController'
 
 const routes = Router()
 
-routes.get('/data', (req: Request, res: Response) => {
-  res.json({ oi: 'oi' })
-})
+routes.get('/', noteController.noteListGet)
+
+routes.post('/', noteController.noteCreatePost)
 
 export default routes

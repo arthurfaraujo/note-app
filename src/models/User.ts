@@ -1,14 +1,21 @@
-import { prisma } from '../prisma/connection'
+import { prisma } from '../../prisma/connection'
+
+interface IUserCreateData {
+  nickname: string;
+  email: string | null;
+  password: string;
+  name: string;
+}
 
 interface IUser {
   nickname: string;
-  email?: string;
+  email?: string | null;
   password: string;
-  name: string;
-  notes?: object[];
+  name?: string | null;
+  notes?: object[] | null;
 }
 
-async function create(User: IUser) {
+async function create(User: IUserCreateData): Promise<IUser> {
   const user = await prisma.user.create({
     data: {
       nickname: User.nickname,
@@ -21,6 +28,18 @@ async function create(User: IUser) {
   return user
 }
 
+async function authenticate(User: IUser): Promise<IUser | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      nickname: User.nickname,
+      password: User.password
+    }
+  })
+
+  return user
+}
+
 export default {
-  create
+  create,
+  authenticate
 }

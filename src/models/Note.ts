@@ -1,4 +1,4 @@
-import { prisma } from '../prisma/connection'
+import { prisma } from '../../prisma/connection'
 
 interface INote {
   id?: number;
