@@ -12,6 +12,7 @@ interface IUser {
   email?: string | null;
   password: string;
   name?: string | null;
+  loginId?: string | null;
   notes?: object[] | null;
 }
 
@@ -39,7 +40,19 @@ async function authenticate(User: IUser): Promise<IUser | null> {
   return user
 }
 
+async function isAuthenticated(User: IUser): Promise<IUser | null> {
+  const user = await prisma.user.findUnique({
+    where: {
+      nickname: User.nickname,
+      loginId: User.loginId
+    }
+  })
+
+  return user
+}
+
 export default {
   create,
-  authenticate
+  authenticate,
+  isAuthenticated
 }
