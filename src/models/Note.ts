@@ -1,13 +1,26 @@
 import { prisma } from '../../prisma/connection'
+import { IUser } from './User'
 
-interface INote {
+interface INoteCreateData {
   id?: number;
   content: string;
   type: number;
   userNickname: string;
 }
 
-async function create(Note: INote): Promise<INote> {
+export interface INote {
+  id: number;
+  content?: string;
+  type?: number;
+  userNickname?: string;
+}
+
+export interface INoteAuthorize {
+  User: IUser;
+  Note: INote;
+}
+
+async function create(Note: INoteCreateData): Promise<INote> {
   const note = await prisma.note.create({
     data: {
       content: Note.content,
@@ -27,7 +40,21 @@ async function readAllByUser(userNickname: string): Promise<INote[]> {
   return notes
 }
 
+async function authorizeUser({
+  User,
+  Note
+}: INoteAuthorize): Promise<INote | null> {
+  const authorized = await prisma.note.findUnique({
+    where: {
+      id: Note.id,
+      userNickname: User.nickname
+    }
+  })
+
+  return authorized
+}
 export default {
   create,
-  readAllByUser
+  readAllByUser,
+  authorizeUser
 }

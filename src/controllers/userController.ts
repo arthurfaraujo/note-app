@@ -48,9 +48,9 @@ async function userAuthenticatePost(req: Request, res: Response) {
 
 async function userIsAuthenticated(req: Request, res: Response) {
   const userCookies = req.signedCookies
-  const isAuthenticated = await User.isAuthenticated(userCookies)
+  const authenticated = await User.isAuthenticated(userCookies)
 
-  return isAuthenticated
+  return authenticated
 }
 
 export default {

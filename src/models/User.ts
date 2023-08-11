@@ -2,15 +2,15 @@ import { prisma } from '../../prisma/connection'
 
 interface IUserCreateData {
   nickname: string;
-  email: string | null;
+  email?: string | null;
   password: string;
   name: string;
 }
 
-interface IUser {
+export interface IUser {
   nickname: string;
   email?: string | null;
-  password: string;
+  password?: string;
   name?: string | null;
   loginId?: string | null;
   notes?: object[] | null;
