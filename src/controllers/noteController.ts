@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
-import Note from '../models/Note'
+import Note, { INote } from '../models/Note'
 
 async function noteListGet(req: Request, res: Response) {
-  const { userNickname } = req.body
+  res.redirect('/noteList.html')
+}
+
+async function noteListGetData(req: Request, res: Response) {
+  const userNickname = req.cookies.userNickname
   const notes = await Note.readAllByUser(userNickname)
 
   res.json(notes)
@@ -10,12 +14,28 @@ async function noteListGet(req: Request, res: Response) {
 
 async function noteCreatePost(req: Request, res: Response) {
   const noteCreateData = req.body
-  const noteData = await Note.create(noteCreateData)
+  const userNickname = req.cookies.userNickname
+
+  const noteData = await Note.create({ ...noteCreateData, userNickname })
 
   res.json(noteData)
 }
 
+async function noteAuthorizeUser(req: Request, res: Response) {
+  const userData = req.signedCookies
+  const noteId = req.params.id
+
+  const authorized = await Note.authorizeUser({
+    User: { ...userData },
+    Note: { id: Number(noteId) }
+  })
+
+  return authorized
+}
+
 export default {
   noteCreatePost,
-  noteListGet
+  noteListGet,
+  noteListGetData,
+  noteAuthorizeUser
 }

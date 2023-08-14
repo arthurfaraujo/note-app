@@ -1,11 +1,28 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
+
+async function userCreateGet(req: Request, res: Response) {
+  res.redirect('/signup.html')
+}
 
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   const userData = await User.create(userCreateData)
 
-  res.json(userData)
+  res
+    .cookie('userNickname', userData.nickname, {
+      signed: true,
+      httpOnly: true
+    })
+    .cookie('userName', userData.name, {
+      signed: true,
+      httpOnly: true
+    })
+    .redirect('/')
+}
+
+async function userLoginGet(req: Request, res: Response) {
+  res.status(401).redirect('/signin.html')
 }
 
 async function userAuthenticatePost(req: Request, res: Response) {
@@ -13,12 +30,37 @@ async function userAuthenticatePost(req: Request, res: Response) {
   const userIsAuthenticated = await User.authenticate(userData)
 
   if (userIsAuthenticated === null) {
-    return res.status(401).json({ error: 'Invalid credentials' })
+    return res.status(401).json({ error: 'Invalid credentials!' })
   }
 
-  res.json(userIsAuthenticated)
+  res
+    .cookie('nickname', userIsAuthenticated.nickname, {
+      signed: true,
+      httpOnly: true
+    })
+    .cookie('userName', userIsAuthenticated.name, {
+      signed: true,
+      httpOnly: true
+    })
+    .redirect('/')
 }
+
+async function userIsAuthenticated(req: Request, res: Response) {
+  const { nickname, loginId } = req.signedCookies
+
+  if (!nickname || !loginId) {
+    return null
+  }
+
+  const authenticated = await User.isAuthenticated({ nickname })
+
+  return authenticated
+}
+
 export default {
+  userLoginGet,
+  userCreateGet,
   userCreatePost,
-  userAuthenticatePost
+  userAuthenticatePost,
+  userIsAuthenticated
 }
