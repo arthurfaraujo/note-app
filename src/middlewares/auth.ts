@@ -10,7 +10,7 @@ export async function isAuthenticated(
   const authenticated = await userController.userIsAuthenticated(req, res)
 
   if (!authenticated) {
-    return res.status(401).json({ error: 'Invalid credentials!' })
+    return res.status(401).redirect('/user/signin')
   }
 
   if (next) {
