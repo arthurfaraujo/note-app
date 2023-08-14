@@ -11,7 +11,6 @@ model user {
   nickname String  @id
   email    String? @unique
   password String
-  loginId  String? @default(cuid())
   name     String
   notes    note[]
 }

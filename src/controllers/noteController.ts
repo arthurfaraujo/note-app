@@ -2,6 +2,10 @@ import { Request, Response, NextFunction } from 'express'
 import Note, { INote } from '../models/Note'
 
 async function noteListGet(req: Request, res: Response) {
+  res.redirect('/noteList.html')
+}
+
+async function noteListGetData(req: Request, res: Response) {
   const userNickname = req.cookies.userNickname
   const notes = await Note.readAllByUser(userNickname)
 
@@ -32,5 +36,6 @@ async function noteAuthorizeUser(req: Request, res: Response) {
 export default {
   noteCreatePost,
   noteListGet,
+  noteListGetData,
   noteAuthorizeUser
 }

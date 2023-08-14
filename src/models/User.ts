@@ -1,19 +1,19 @@
 import { prisma } from '../../prisma/connection'
 
 interface IUserCreateData {
-  nickname: string;
-  email?: string | null;
-  password: string;
-  name: string;
+  nickname: string
+  email?: string | null
+  password: string
+  name: string
 }
 
 export interface IUser {
-  nickname: string;
-  email?: string | null;
-  password?: string;
-  name?: string | null;
-  loginId?: string | null;
-  notes?: object[] | null;
+  nickname: string
+  email?: string | null
+  password?: string
+  name?: string | null
+  loginId?: string | null
+  notes?: object[] | null
 }
 
 async function create(User: IUserCreateData): Promise<IUser> {
@@ -34,6 +34,10 @@ async function authenticate(User: IUser): Promise<IUser | null> {
     where: {
       nickname: User.nickname,
       password: User.password
+    },
+    select: {
+      nickname: true,
+      name: true
     }
   })
 
@@ -41,6 +45,8 @@ async function authenticate(User: IUser): Promise<IUser | null> {
 }
 
 async function isAuthenticated(User: IUser): Promise<IUser | null> {
+  const { nickname, loginId } = User
+
   const user = await prisma.user.findUnique({
     where: {
       nickname: User.nickname,

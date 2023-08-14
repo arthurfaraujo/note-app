@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
-import { nextTick } from 'process'
 
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
@@ -22,6 +21,10 @@ async function userCreatePost(req: Request, res: Response) {
     .json(userData)
 }
 
+async function userLoginGet(req: Request, res: Response) {
+  res.status(401).redirect('/signin.html')
+}
+
 async function userAuthenticatePost(req: Request, res: Response) {
   const userData = req.body
   const userIsAuthenticated = await User.authenticate(userData)
@@ -31,9 +34,9 @@ async function userAuthenticatePost(req: Request, res: Response) {
   }
 
   res
-    .cookie('userNickname', userIsAuthenticated.nickname, {
-      signed: true
-      // httpOnly: true
+    .cookie('nickname', userIsAuthenticated.nickname, {
+      signed: true,
+      httpOnly: true
     })
     .cookie('userName', userIsAuthenticated.name, {
       signed: true,
@@ -47,13 +50,19 @@ async function userAuthenticatePost(req: Request, res: Response) {
 }
 
 async function userIsAuthenticated(req: Request, res: Response) {
-  const userCookies = req.signedCookies
-  const authenticated = await User.isAuthenticated(userCookies)
+  const { nickname, loginId } = req.signedCookies
+
+  if (!nickname || !loginId) {
+    return null
+  }
+
+  const authenticated = await User.isAuthenticated({ nickname, loginId })
 
   return authenticated
 }
 
 export default {
+  userLoginGet,
   userCreatePost,
   userAuthenticatePost,
   userIsAuthenticated
