@@ -7,6 +7,6 @@ const routes = Router()
 routes.get('/' /* , isAuthenticated */, noteController.noteListGet)
 routes.get('/data', isAuthenticated, noteController.noteListGetData)
 routes.post('/', isAuthenticated, noteController.noteCreatePost)
-routes.put('/:id', isAuthorized, () => console.log('oi'))
+routes.put('/:id', isAuthorized /* 0 */)
 
 export default routes

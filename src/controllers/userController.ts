@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
 
+async function userCreateGet(req: Request, res: Response) {
+  res.redirect('/signup.html')
+}
+
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   const userData = await User.create(userCreateData)
@@ -14,11 +18,7 @@ async function userCreatePost(req: Request, res: Response) {
       signed: true,
       httpOnly: true
     })
-    .cookie('loginId', userData.loginId, {
-      signed: true,
-      httpOnly: true
-    })
-    .json(userData)
+    .redirect('/')
 }
 
 async function userLoginGet(req: Request, res: Response) {
@@ -42,11 +42,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
       signed: true,
       httpOnly: true
     })
-    .cookie('loginId', userIsAuthenticated.loginId, {
-      signed: true,
-      httpOnly: true
-    })
-    .json(userIsAuthenticated)
+    .redirect('/')
 }
 
 async function userIsAuthenticated(req: Request, res: Response) {
@@ -56,13 +52,14 @@ async function userIsAuthenticated(req: Request, res: Response) {
     return null
   }
 
-  const authenticated = await User.isAuthenticated({ nickname, loginId })
+  const authenticated = await User.isAuthenticated({ nickname })
 
   return authenticated
 }
 
 export default {
   userLoginGet,
+  userCreateGet,
   userCreatePost,
   userAuthenticatePost,
   userIsAuthenticated
