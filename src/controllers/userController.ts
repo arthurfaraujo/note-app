@@ -46,9 +46,9 @@ async function userAuthenticatePost(req: Request, res: Response) {
 }
 
 async function userIsAuthenticated(req: Request, res: Response) {
-  const { nickname, loginId } = req.signedCookies
+  const { nickname } = req.signedCookies
 
-  if (!nickname || !loginId) {
+  if (!nickname) {
     return null
   }
 
