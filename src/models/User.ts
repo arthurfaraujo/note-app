@@ -48,7 +48,7 @@ async function isAuthenticated(User: IUser): Promise<IUser | null> {
 
   const user = await prisma.user.findUnique({
     where: {
-      nickname: User.nickname
+      nickname
     }
   })
 
