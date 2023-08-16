@@ -6,8 +6,8 @@ async function noteListGet(req: Request, res: Response) {
 }
 
 async function noteListGetData(req: Request, res: Response) {
-  const userNickname = req.cookies.userNickname
-  const notes = await Note.readAllByUser(userNickname)
+  const nickname = req.signedCookies.nickname
+  const notes = await Note.readAllByUser(nickname)
 
   res.json(notes)
 }

@@ -32,9 +32,9 @@ async function create(Note: INoteCreateData): Promise<INote> {
   return note
 }
 
-async function readAllByUser(userNickname: string): Promise<INote[]> {
+async function readAllByUser(nickname: string): Promise<INote[]> {
   const notes = await prisma.note.findMany({
-    where: { userNickname }
+    where: { userNickname: nickname }
   })
 
   return notes
