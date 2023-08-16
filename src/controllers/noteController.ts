@@ -33,9 +33,17 @@ async function noteAuthorizeUser(req: Request, res: Response) {
   return authorized
 }
 
+async function noteDelete(req: Request, res: Response) {
+  const noteId = req.params.id
+  const note = await Note.deleteById(Number(noteId))
+
+  res.json(note)
+}
+
 export default {
   noteCreatePost,
   noteListGet,
   noteListGetData,
-  noteAuthorizeUser
+  noteAuthorizeUser,
+  noteDelete
 }

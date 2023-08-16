@@ -2,16 +2,16 @@ function addNoteRemove(note) {
   const deleteButton = note.querySelector('.delete')
 
   deleteButton.addEventListener('click', async () => {
-    /* const noteId = note.id.split('-')[1]
+    const noteId = note.id.split('-')[1]
 
     await fetch(`/notes/${noteId}`, {
       method: 'DELETE'
-    }).then(res => res.ok).then(ok => {
-      if (ok) note.remove();
-      else alert('Erro ao deletar nota')
-    }) */
-
-    note.remove()
+    })
+      .then(res => res.ok)
+      .then(ok => {
+        if (ok) note.remove()
+        else alert('Erro ao deletar nota')
+      })
   })
 }
 

@@ -2,22 +2,22 @@ import { prisma } from '../../prisma/connection'
 import { IUser } from './User'
 
 interface INoteCreateData {
-  id?: number;
-  content: string;
-  type: number;
-  userNickname: string;
+  id?: number
+  content: string
+  type: number
+  userNickname: string
 }
 
 export interface INote {
-  id: number;
-  content?: string;
-  type?: number;
-  userNickname?: string;
+  id: number
+  content?: string
+  type?: number
+  userNickname?: string
 }
 
 export interface INoteAuthorize {
-  User: IUser;
-  Note: INote;
+  User: IUser
+  Note: INote
 }
 
 async function create(Note: INoteCreateData): Promise<INote> {
@@ -53,8 +53,18 @@ async function authorizeUser({
 
   return authorized
 }
+
+async function deleteById(id: number): Promise<INote | null> {
+  const note = await prisma.note.delete({
+    where: { id }
+  })
+
+  return note
+}
+
 export default {
   create,
   readAllByUser,
-  authorizeUser
+  authorizeUser,
+  deleteById
 }
