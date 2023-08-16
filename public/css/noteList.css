@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  background-color: #ffffff;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px;
+}
+
+.createNote {
+  width: 80%;
+  display: flex;
+  background-color: #fdfdfd;
+  border: 1px solid #b3b3b3;
+  border-radius: 4px;
+  padding: 5px 5px 5px 20px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.createNote div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+
+.noteList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 15px;
+}
+
+.note {
+  max-width: 45%;
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid #b8b8b8;
+  border-radius: 8px;
+  line-break: loose;
+  word-break: break-word;
+}
+
+.noteTitle {
+  width: 100%;
+  font-size: 1.18rem;
+  /* font-weight: bold; */
+}
+
+.noteContent {
+  width: 100%;
+  font-size: 1.1rem;
+  /* font-weight: 500; */
+}
+
+.noteOptions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
