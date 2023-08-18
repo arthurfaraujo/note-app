@@ -13,11 +13,11 @@ server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 server.use(cookieParser(process.env.COOKIE_SECRET || 'mySecret'))
 server.use(express.static('public'))
+server.set('view engine', 'ejs')
+server.set('views', 'src/views')
 
 server.use('/', appRoutes)
-
 server.use('/notes', noteRoutes)
-
 server.use('/user', userRoutes)
 
 server.listen(3000, () => console.log('Server running...'))
