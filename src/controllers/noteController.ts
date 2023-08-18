@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import Note, { INote } from '../models/Note'
 
 async function noteListGet(req: Request, res: Response) {
-  res.redirect('/noteList.html')
+  res.render('noteList')
 }
 
 async function noteListGetData(req: Request, res: Response) {

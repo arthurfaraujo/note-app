@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
 
 async function userCreateGet(req: Request, res: Response) {
-  res.redirect('/signup.html')
+  res.render('signup')
 }
 
 async function userCreatePost(req: Request, res: Response) {
@@ -21,8 +21,8 @@ async function userCreatePost(req: Request, res: Response) {
     .redirect('/')
 }
 
-async function userLoginGet(req: Request, res: Response) {
-  res.status(401).redirect('/signin.html')
+async function userSigninGet(req: Request, res: Response) {
+  res.render('signin')
 }
 
 async function userAuthenticatePost(req: Request, res: Response) {
@@ -57,10 +57,15 @@ async function userIsAuthenticated(req: Request, res: Response) {
   return authenticated
 }
 
+async function userSignoutGet(req: Request, res: Response) {
+  return res.clearCookie('nickname').clearCookie('userName').end()
+}
+
 export default {
-  userLoginGet,
+  userSigninGet,
   userCreateGet,
   userCreatePost,
   userAuthenticatePost,
-  userIsAuthenticated
+  userIsAuthenticated,
+  userSignoutGet
 }
