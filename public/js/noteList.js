@@ -53,6 +53,21 @@ async function showNotes() {
     console.log(note)
     insertNote(note)
   })
+
+  addSignoutButton()
+}
+
+function addSignoutButton() {
+  const signoutButton = document.body.querySelector('#signoutButton')
+
+  signoutButton.addEventListener('click', async () => {
+    await fetch('/user/signout')
+      .then(res => res.status)
+      .then(status => {
+        if (status === 200) window.location.href = '/'
+        else alert('Erro ao sair')
+      })
+  })
 }
 
 showNotes()
