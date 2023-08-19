@@ -5,6 +5,7 @@ import userRoutes from './routes/userRoutes'
 import appRoutes from './routes/appRoutes'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
+import ErrorHandlers from './middlewares/error'
 
 const server = express()
 
@@ -16,8 +17,9 @@ server.use(express.static('public'))
 server.set('view engine', 'ejs')
 server.set('views', 'src/views')
 
-server.use('/', appRoutes)
 server.use('/notes', noteRoutes)
 server.use('/user', userRoutes)
+server.use('/', appRoutes)
+server.use(ErrorHandlers.pageNotFound, ErrorHandlers.otherErrors)
 
 server.listen(3000, () => console.log('Server running...'))
