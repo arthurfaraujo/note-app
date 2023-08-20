@@ -22,4 +22,4 @@ server.use('/user', userRoutes)
 server.use('/', appRoutes)
 server.use(ErrorHandlers.pageNotFound, ErrorHandlers.otherErrors)
 
-server.listen(3000, () => console.log('Server running...'))
+server.listen(3000, '0.0.0.0', () => console.log('Server running...'))
