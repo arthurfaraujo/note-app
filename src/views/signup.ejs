@@ -3,23 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/sign.css" />
     <title>Sign Up</title>
   </head>
   <body>
-    <main>
-      <h1>Sign Up</h1>
-      <form action="/user/signup" method="post">
-        <input type="text" name="nickname" placeholder="Nickname" required />
-        <input type="text" name="name" placeholder="Full Name" />
-        <input type="text" name="email" placeholder="Email" required />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <button type="submit" name="signup-submit">Sign Up</button>
-      </form>
+    <main class="container">
+      <div class="form">
+        <h1>Sign Up</h1>
+        <form action="/user/signup" method="post">
+          <div class="inputField">
+            <label for="nickname">Nickname</label>
+            <input
+              type="text"
+              name="nickname"
+              placeholder="Nickname"
+              required
+            />
+          </div>
+
+          <div class="inputField">
+            <label for="name">Name</label>
+            <input type="text" name="name" placeholder="Full Name" />
+          </div>
+
+          <div class="inputField">
+            <label for="email">E-mail</label>
+            <input type="text" name="email" placeholder="Email" required />
+          </div>
+
+          <div class="inputField">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <button type="submit" name="signup-submit">Sign Up</button>
+        </form>
+      </div>
     </main>
   </body>
 </html>
