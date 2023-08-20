@@ -7,12 +7,21 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     <title>Noteify</title>
   </head>
+
   <body>
     <%- include('partials/navBar') %>
     <main class="container">
       <div class="createNote" contenteditable="true">
-        <div class="noteTitle" style="display: none"></div>
-        <div class="noteContent" contenteditable="false">Crie uma nota...</div>
+        <div class="createNoteTitle" style="display: none" spellcheck="false">
+          Note title
+        </div>
+        <div
+          class="createNoteContent"
+          contenteditable="false"
+          spellcheck="false"
+        >
+          Create a note...
+        </div>
       </div>
       <div id="root" class="noteList"></div>
     </main>
