@@ -14,7 +14,9 @@ async function noteListGetData(req: Request, res: Response) {
 
 async function noteCreatePost(req: Request, res: Response) {
   const noteCreateData = req.body
-  const userNickname = req.cookies.userNickname
+  const userNickname = req.signedCookies.nickname
+
+  console.log(noteCreateData)
 
   const noteData = await Note.create({ ...noteCreateData, userNickname })
 

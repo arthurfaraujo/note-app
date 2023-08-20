@@ -5,16 +5,16 @@ interface INoteCreateData {
   id?: number
   title: string
   content: string
-  type: number | null
+  type?: number | null
   userNickname: string
 }
 
 export interface INote {
   id: number
-  title: string
-  content: string
-  type: number | null
-  userNickname: string
+  title?: string
+  content?: string
+  type?: number | null
+  userNickname?: string
 }
 
 export interface INoteAuthorize {
