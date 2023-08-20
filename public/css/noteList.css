@@ -72,7 +72,7 @@ body {
 }
 
 .note {
-  max-width: 200px;
+  max-width: 280px;
   width: 45%;
   min-width: 80px;
   display: flex;
@@ -102,6 +102,10 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+}
+
+.noteOptions div {
+  cursor: pointer;
 }
 
 .navBar {
@@ -143,4 +147,14 @@ body {
   width: 100%;
   height: 3px;
   background-color: #000000;
+}
+
+@media screen and (min-width: 620px) {
+  .noteList {
+    justify-content: left;
+  }
+
+  .note {
+    width: 30%;
+  }
 }
