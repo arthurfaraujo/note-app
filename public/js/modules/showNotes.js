@@ -18,7 +18,9 @@ function addNoteRemove(note) {
 function generateView(noteData) {
   const note = `
   <div class="note" id="note-${noteData.id}">
-          <div class="noteTitle" style="user-select: none">${noteData.title}</div>
+          <div class="noteTitle" style="user-select: none${
+            noteData.title ? '' : '; display: none'
+          }">${noteData.title}</div>
           <div class="noteContent" style="user-select: none">
             ${noteData.content}
           </div>

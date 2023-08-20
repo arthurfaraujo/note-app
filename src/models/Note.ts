@@ -3,7 +3,7 @@ import { IUser } from './User'
 
 interface INoteCreateData {
   id?: number
-  title: string
+  title?: string | null
   content: string
   type?: number | null
   userNickname: string
@@ -11,7 +11,7 @@ interface INoteCreateData {
 
 export interface INote {
   id: number
-  title?: string
+  title?: string | null
   content?: string
   type?: number | null
   userNickname?: string
@@ -25,7 +25,7 @@ export interface INoteAuthorize {
 async function create(Note: INoteCreateData): Promise<INote> {
   const note = await prisma.note.create({
     data: {
-      title: Note.title,
+      title: Note.title || null,
       content: Note.content,
       type: Note.type,
       userNickname: Note.userNickname
