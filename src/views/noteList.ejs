@@ -11,17 +11,25 @@
   <body>
     <%- include('partials/navBar') %>
     <main class="container">
-      <div class="createNote" contenteditable="true">
-        <div class="createNoteTitle" style="display: none" spellcheck="false">
-          Note title
-        </div>
-        <div
-          class="createNoteContent"
-          contenteditable="false"
-          spellcheck="false"
-        >
-          Create a note...
-        </div>
+      <div class="createNote">
+        <form class="createNoteForm">
+          <input
+            type="text"
+            class="createNoteTitle"
+            name="title"
+            placeholder="Note title"
+            spellcheck="false"
+            style="display: none"
+          />
+          <input
+            type="text"
+            class="createNoteContent"
+            name="content"
+            placeholder="Create a note..."
+            spellcheck="false"
+          />
+        </form>
+        <button class="createNoteSend" style="display: none">Fechar</button>
       </div>
       <div id="root" class="noteList"></div>
     </main>
