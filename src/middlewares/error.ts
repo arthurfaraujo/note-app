@@ -2,7 +2,14 @@ import { Request, Response, NextFunction } from 'express'
 import HttpException from '../exceptions/HttpException'
 
 function pageNotFound(req: Request, res: Response, next: NextFunction) {
-  res.status(404).json({ message: 'Page not found' })
+  res.status(404).send(
+    `
+    <div style="text-align: center; font-family: monospace; font-weight: 800">
+      <h1 style="font-size: 3rem">Error</h1>
+      <p style="font-size: 2rem">Page not found</p>
+    </div>
+    `
+  )
 }
 
 function otherErrors(
