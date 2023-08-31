@@ -14,7 +14,7 @@ const PORT: number = Number(process.env.SERVER_PORT) || 3000
 server.use(morgan('dev'))
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
-server.use(cookieParser(process.env.SERVER_SECRET || 'mySecret'))
+server.use(cookieParser(process.env.SERVER_SECRET || 'IIBh&yiuy230hJJHG9yas'))
 server.use(express.static('public'))
 server.set('view engine', 'ejs')
 server.set('views', 'src/views')
@@ -24,4 +24,6 @@ server.use('/user', userRoutes)
 server.use('/', appRoutes)
 server.use(ErrorHandlers.pageNotFound, ErrorHandlers.otherErrors)
 
-server.listen(PORT, '0.0.0.0', () => console.log('Server running...'))
+server.listen(PORT, '0.0.0.0', () =>
+  console.log('Server running on port ' + PORT + '...')
+)
