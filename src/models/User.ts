@@ -25,7 +25,7 @@ interface IUserAuthenticateData {
 async function create(User: IUserCreateData): Promise<IUser> {
   User.password = await bcrypt.hash(
     User.password,
-    process.env.SALT_ROUNDS || 10
+    Number(process.env.SALT_ROUNDS) || 10
   )
 
   const user = await prisma.user.create({
