@@ -1,23 +1,20 @@
 import { Request, Response, NextFunction } from 'express'
 import userController from '../controllers/userController'
 import noteController from '../controllers/noteController'
+import HttpException from '../exceptions/HttpException'
 
 export async function isAuthenticated(
   req: Request,
   res: Response,
-  next?: NextFunction
-): Promise<boolean | void | Response> {
+  next: NextFunction
+): Promise<void | Response> {
   const authenticated = await userController.userIsAuthenticated(req, res)
 
   if (!authenticated) {
-    return res.status(401).redirect('/user/signin')
+    return res.redirect(401, '/user/signin')
   }
 
-  if (next) {
-    return next()
-  }
-
-  return authenticated ? true : false
+  return next()
 }
 
 export async function isAuthorized(
@@ -25,16 +22,11 @@ export async function isAuthorized(
   res: Response,
   next: NextFunction
 ): Promise<void | Response> {
-  const authenticated = await isAuthenticated(req, res)
-
-  if (!authenticated) {
-    return res.status(401).json({ message: 'Unauthorized!' })
-  }
-
   const authorized = await noteController.noteAuthorizeUser(req, res)
 
   if (!authorized) {
-    return res.status(401).json({ message: 'Unauthorized!' })
+    // return res.status(403).json({ message: 'Unauthorized!' })
+    throw new HttpException(403, 'Unauthorized!')
   }
 
   return next()
