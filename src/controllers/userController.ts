@@ -3,7 +3,7 @@ import User from '../models/User'
 
 interface ICookies {
   nickname: string
-  userName?: string | null
+  name?: string | null
 }
 
 async function userCreateGet(req: Request, res: Response) {
@@ -19,7 +19,7 @@ async function userCreatePost(req: Request, res: Response) {
       signed: true,
       httpOnly: true
     })
-    .cookie('userName', userData.name, {
+    .cookie('name', userData.name, {
       signed: true,
       httpOnly: true
     }) */
@@ -32,18 +32,18 @@ async function userSigninGet(req: Request, res: Response) {
 
 async function userAuthenticatePost(req: Request, res: Response) {
   const userData = req.body
-  const userIsAuthenticated = await User.authenticate(userData)
+  const authenticated = await User.authenticate(userData)
 
-  if (!userIsAuthenticated) {
+  if (!authenticated) {
     // o erro que o model joga impede de chegar nessa res
     return res.status(401).json({ error: 'Invalid credentials!' })
   } else {
     res
-      .cookie('nickname', userIsAuthenticated.nickname, {
+      .cookie('nickname', authenticated.nickname, {
         signed: true,
         httpOnly: true
       })
-      .cookie('userName', userIsAuthenticated.name, {
+      .cookie('name', authenticated.name, {
         signed: true,
         httpOnly: true
       })
@@ -64,7 +64,7 @@ async function userIsAuthenticated(req: Request, res: Response) {
 }
 
 async function userSignoutGet(req: Request, res: Response) {
-  return res.clearCookie('nickname').clearCookie('userName').end()
+  return res.clearCookie('nickname').clearCookie('name').end()
 }
 
 export default {
