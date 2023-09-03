@@ -43,7 +43,7 @@ async function readAllByUser(nickname: string): Promise<INote[]> {
   return notes
 }
 
-async function authorizeUser({
+export async function authorizeUser({
   User,
   Note
 }: INoteAuthorize): Promise<INote | null> {

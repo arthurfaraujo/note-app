@@ -14,16 +14,7 @@ async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   /* const userData =  */ await User.create(userCreateData)
 
-  res
-    /*     .cookie('nickname', userData.nickname, {
-      signed: true,
-      httpOnly: true
-    })
-    .cookie('name', userData.name, {
-      signed: true,
-      httpOnly: true
-    }) */
-    .redirect('/user/signin')
+  res.redirect('/user/signin')
 }
 
 async function userSigninGet(req: Request, res: Response) {
@@ -51,18 +42,6 @@ async function userAuthenticatePost(req: Request, res: Response) {
   }
 }
 
-async function userIsAuthenticated(req: Request, res: Response) {
-  const { nickname }: ICookies = req.signedCookies
-
-  if (!nickname) {
-    return null
-  }
-
-  const authenticated = await User.isAuthenticated({ nickname })
-
-  return authenticated
-}
-
 async function userSignoutGet(req: Request, res: Response) {
   return res.clearCookie('nickname').clearCookie('name').end()
 }
@@ -72,6 +51,5 @@ export default {
   userCreateGet,
   userCreatePost,
   userAuthenticatePost,
-  userIsAuthenticated,
   userSignoutGet
 }

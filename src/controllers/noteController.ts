@@ -23,18 +23,6 @@ async function noteCreatePost(req: Request, res: Response) {
   res.json(noteData)
 }
 
-async function noteAuthorizeUser(req: Request, res: Response) {
-  const userData = req.signedCookies
-  const noteId = req.params.id
-
-  const authorized = await Note.authorizeUser({
-    User: { ...userData },
-    Note: { id: Number(noteId) }
-  })
-
-  return authorized
-}
-
 async function noteDelete(req: Request, res: Response) {
   const noteId = req.params.id
   const note = await Note.deleteById(Number(noteId))
@@ -46,6 +34,5 @@ export default {
   noteCreatePost,
   noteListGet,
   noteListGetData,
-  noteAuthorizeUser,
   noteDelete
 }
