@@ -1,4 +1,4 @@
-function addNoteRemove(note) {
+function noteRemove(note) {
   const deleteButton = note.querySelector('.delete')
 
   deleteButton.addEventListener('click', async () => {
@@ -45,7 +45,7 @@ export function insertNote(noteData) {
   noteList.insertAdjacentHTML('afterbegin', note)
   const currentNote = noteList.querySelector(`#note-${noteData.id}`)
 
-  addNoteRemove(currentNote)
+  noteRemove(currentNote)
 }
 
 async function showNotes() {
@@ -55,10 +55,10 @@ async function showNotes() {
     insertNote(note)
   })
 
-  addSignoutButton()
+  signoutButton()
 }
 
-function addSignoutButton() {
+function signoutButton() {
   const signoutButton = document.body.querySelector('#signoutButton')
 
   signoutButton.addEventListener('click', async () => {
@@ -66,7 +66,7 @@ function addSignoutButton() {
       .then(res => res.status)
       .then(status => {
         if (status === 200) window.location.href = '/'
-        else alert('Erro ao sair')
+        else alert('Erro ao sair!')
       })
   })
 }
