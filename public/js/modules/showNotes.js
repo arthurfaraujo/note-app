@@ -1,7 +1,7 @@
 function noteRemove(note) {
   const deleteButton = note.querySelector('.delete')
 
-  deleteButton.addEventListener('click', async () => {
+  deleteButton.addEventListener('click', async e => {
     const noteId = note.id.split('-')[1]
 
     await fetch(`/notes/${noteId}`, {
@@ -10,7 +10,7 @@ function noteRemove(note) {
       .then(res => res.ok)
       .then(ok => {
         if (ok) note.remove()
-        else alert('Erro ao deletar nota')
+        else alert('Note not deleted!')
       })
   })
 }
@@ -61,7 +61,7 @@ async function showNotes() {
 function signoutButton() {
   const signoutButton = document.body.querySelector('#signoutButton')
 
-  signoutButton.addEventListener('click', async () => {
+  signoutButton.addEventListener('click', async e => {
     await fetch('/user/signout')
       .then(res => res.status)
       .then(status => {
