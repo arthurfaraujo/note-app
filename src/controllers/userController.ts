@@ -26,10 +26,9 @@ async function userAuthenticatePost(req: Request, res: Response) {
   const authenticated = await User.authenticate(userData)
 
   if (!authenticated) {
-    // o erro que o model joga impede de chegar nessa res
-    return res.status(401).json({ error: 'Invalid credentials!' })
+    throw new Error('Invalid credentials!')
   } else {
-    res
+    return res
       .cookie('nickname', authenticated.nickname, {
         signed: true,
         httpOnly: true

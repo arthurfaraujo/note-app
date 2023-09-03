@@ -59,23 +59,21 @@ async function readByNickname(
 
 async function authenticate(
   User: IUserAuthenticateData
-): Promise<IUser | undefined> {
+): Promise<IUser | null> {
   const user = await readByNickname(User.nickname)
 
   if (!user) {
-    throw new Error('User not found!')
+    return null
   } else {
     const passwordMatch = await bcrypt.compare(User.password, user.password)
 
-    if (passwordMatch) {
-      return {
-        nickname: user.nickname,
-        name: user.name
-      }
-    }
+    return passwordMatch
+      ? {
+          nickname: user.nickname,
+          name: user.name
+        }
+      : null
   }
-
-  throw new Error('Invalid password!')
 }
 
 async function isAuthenticated(User: IUser): Promise<IUser | null> {
