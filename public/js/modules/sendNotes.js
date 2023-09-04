@@ -1,4 +1,5 @@
 import { insertNote } from './showNotes.js'
+import { getToken } from './auth.js'
 
 const createNoteSend = document.body.querySelector('.createNoteSend')
 const createNoteForm = document.body.querySelector('.createNoteForm')
@@ -28,7 +29,10 @@ function sendForm() {
   if (content) {
     fetch('/notes', {
       method: 'POST',
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${getToken()}`
+      },
       body: JSON.stringify(createNoteData)
     }).then(async res => {
       res.status === 200

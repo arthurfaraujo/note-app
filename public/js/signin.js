@@ -1,3 +1,5 @@
+import { setToken } from './modules/auth.js'
+
 const form = document.body.querySelector('form')
 
 form.addEventListener('submit', async e => {
@@ -12,11 +14,12 @@ form.addEventListener('submit', async e => {
     body: JSON.stringify(formData)
   }
 
-  const res = await fetch(url, reqConfig)
+  const res = await fetch(url, reqConfig).then(res => res.json())
 
-  if (res.status === 200) {
+  if (res.auth) {
+    setToken(res.token)
     window.location.href = '/'
   } else {
-    alert('Invalid username or password!')
+    alert(res.token)
   }
 })
