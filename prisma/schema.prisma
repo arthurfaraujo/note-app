@@ -16,9 +16,10 @@ model user {
 }
 
 model note {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
+  title        String?
   content      String
-  type         Int
+  type         Int?
   userNickname String
-  user         user   @relation(fields: [userNickname], references: [nickname])
+  user         user    @relation(fields: [userNickname], references: [nickname])
 }

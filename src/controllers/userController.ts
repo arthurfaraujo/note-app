@@ -1,66 +1,56 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
 
+interface ICookies {
+  nickname: string
+  name?: string | null
+}
+
 async function userCreateGet(req: Request, res: Response) {
-  res.redirect('/signup.html')
+  res.render('signup')
 }
 
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
-  const userData = await User.create(userCreateData)
+  /* const userData =  */ await User.create(userCreateData)
 
-  res
-    .cookie('userNickname', userData.nickname, {
-      signed: true,
-      httpOnly: true
-    })
-    .cookie('userName', userData.name, {
-      signed: true,
-      httpOnly: true
-    })
-    .redirect('/')
+  res.redirect('/user/signin')
 }
 
-async function userLoginGet(req: Request, res: Response) {
-  res.status(401).redirect('/signin.html')
+async function userSigninGet(req: Request, res: Response) {
+  res.render('signin')
 }
 
 async function userAuthenticatePost(req: Request, res: Response) {
   const userData = req.body
-  const userIsAuthenticated = await User.authenticate(userData)
+  const authenticated = await User.authenticate(userData)
 
-  if (userIsAuthenticated === null) {
-    return res.status(401).json({ error: 'Invalid credentials!' })
+  if (!authenticated) {
+    // throw new Error('Invalid credentials!')
+    res.status(401).json({ error: 'Invalid credentials!' })
+  } else {
+    return res
+      .status(200)
+      .cookie('nickname', authenticated.nickname, {
+        signed: true,
+        httpOnly: true
+      })
+      .cookie('name', authenticated.name, {
+        signed: true,
+        httpOnly: true
+      })
+      .json({ message: 'User authenticated!' })
   }
-
-  res
-    .cookie('nickname', userIsAuthenticated.nickname, {
-      signed: true,
-      httpOnly: true
-    })
-    .cookie('userName', userIsAuthenticated.name, {
-      signed: true,
-      httpOnly: true
-    })
-    .redirect('/')
 }
 
-async function userIsAuthenticated(req: Request, res: Response) {
-  const { nickname } = req.signedCookies
-
-  if (!nickname) {
-    return null
-  }
-
-  const authenticated = await User.isAuthenticated({ nickname })
-
-  return authenticated
+async function userSignoutGet(req: Request, res: Response) {
+  return res.clearCookie('nickname').clearCookie('name').end()
 }
 
 export default {
-  userLoginGet,
+  userSigninGet,
   userCreateGet,
   userCreatePost,
   userAuthenticatePost,
-  userIsAuthenticated
+  userSignoutGet
 }

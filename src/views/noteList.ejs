@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/noteList.css" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <title>Notefy</title>
+  </head>
+
+  <body>
+    <%- include('partials/navBar') %>
+    <main class="container">
+      <div class="createNote">
+        <form class="createNoteForm">
+          <input
+            type="text"
+            class="createNoteTitle"
+            name="title"
+            placeholder="Note title"
+            spellcheck="false"
+            style="display: none"
+          />
+          <input
+            type="text"
+            class="createNoteContent"
+            name="content"
+            placeholder="Create a note..."
+            spellcheck="false"
+          />
+        </form>
+        <button class="createNoteSend" style="display: none">Fechar</button>
+      </div>
+      <div id="root" class="noteList"></div>
+    </main>
+    <script type="module" src="js/noteList.js"></script>
+  </body>
+</html>

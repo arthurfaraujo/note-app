@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/sign.css" />
+    <title>Sign In</title>
+  </head>
+  <body>
+    <main class="container">
+      <div class="form">
+        <h1>Sign In</h1>
+        <form action="/user/authenticate" method="post">
+          <div class="inputField">
+            <label for="nickname">Nickname</label>
+            <input
+              type="text"
+              name="nickname"
+              placeholder="Nickname"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+          </div>
+
+          <div class="inputField">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+          </div>
+
+          <input type="submit" value="Sign In" />
+        </form>
+        <p>Doesn't have an account?</p>
+        <a href="/user/signup"><button>Sign Up!</button></a>
+      </div>
+    </main>
+    <script src="/js/signin.js"></script>
+  </body>
+</html>

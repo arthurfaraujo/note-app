@@ -2,27 +2,30 @@ import { prisma } from '../../prisma/connection'
 import { IUser } from './User'
 
 interface INoteCreateData {
-  id?: number;
-  content: string;
-  type: number;
-  userNickname: string;
+  id?: number
+  title?: string | null
+  content: string
+  type?: number | null
+  userNickname: string
 }
 
 export interface INote {
-  id: number;
-  content?: string;
-  type?: number;
-  userNickname?: string;
+  id: number
+  title?: string | null
+  content?: string
+  type?: number | null
+  userNickname?: string
 }
 
 export interface INoteAuthorize {
-  User: IUser;
-  Note: INote;
+  User: IUser
+  Note: INote
 }
 
 async function create(Note: INoteCreateData): Promise<INote> {
   const note = await prisma.note.create({
     data: {
+      title: Note.title || null,
       content: Note.content,
       type: Note.type,
       userNickname: Note.userNickname
@@ -32,15 +35,15 @@ async function create(Note: INoteCreateData): Promise<INote> {
   return note
 }
 
-async function readAllByUser(userNickname: string): Promise<INote[]> {
+async function readAllByUser(nickname: string): Promise<INote[]> {
   const notes = await prisma.note.findMany({
-    where: { userNickname }
+    where: { userNickname: nickname }
   })
 
   return notes
 }
 
-async function authorizeUser({
+export async function authorizeUser({
   User,
   Note
 }: INoteAuthorize): Promise<INote | null> {
@@ -53,8 +56,18 @@ async function authorizeUser({
 
   return authorized
 }
+
+async function deleteById(id: number): Promise<INote | null> {
+  const note = await prisma.note.delete({
+    where: { id }
+  })
+
+  return note
+}
+
 export default {
   create,
   readAllByUser,
-  authorizeUser
+  authorizeUser,
+  deleteById
 }

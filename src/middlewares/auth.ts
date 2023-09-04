@@ -1,23 +1,19 @@
 import { Request, Response, NextFunction } from 'express'
-import userController from '../controllers/userController'
-import noteController from '../controllers/noteController'
+import HttpException from '../exceptions/HttpException'
+import { authorizeUser } from '../models/Note'
 
 export async function isAuthenticated(
   req: Request,
   res: Response,
-  next?: NextFunction
-): Promise<boolean | void | Response> {
-  const authenticated = await userController.userIsAuthenticated(req, res)
+  next: NextFunction
+): Promise<void | Response> {
+  const { nickname } = req.signedCookies
 
-  if (!authenticated) {
-    return res.status(401).redirect('/user/signin')
+  if (!nickname) {
+    return res.redirect('/user/signin')
   }
 
-  if (next) {
-    return next()
-  }
-
-  return authenticated ? true : false
+  return next()
 }
 
 export async function isAuthorized(
@@ -25,16 +21,13 @@ export async function isAuthorized(
   res: Response,
   next: NextFunction
 ): Promise<void | Response> {
-  const authenticated = await isAuthenticated(req, res)
+  const { nickname } = req.signedCookies
+  const id = Number(req.params.id)
 
-  if (!authenticated) {
-    return res.status(401).json({ message: 'Unauthorized!' })
-  }
-
-  const authorized = await noteController.noteAuthorizeUser(req, res)
+  const authorized = await authorizeUser({ User: { nickname }, Note: { id } })
 
   if (!authorized) {
-    return res.status(401).json({ message: 'Unauthorized!' })
+    return res.status(403).json({ message: 'Unauthorized!' })
   }
 
   return next()
