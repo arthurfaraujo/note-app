@@ -26,9 +26,11 @@ async function userAuthenticatePost(req: Request, res: Response) {
   const authenticated = await User.authenticate(userData)
 
   if (!authenticated) {
-    throw new Error('Invalid credentials!')
+    // throw new Error('Invalid credentials!')
+    res.status(401).json({ error: 'Invalid credentials!' })
   } else {
     return res
+      .status(200)
       .cookie('nickname', authenticated.nickname, {
         signed: true,
         httpOnly: true
@@ -37,7 +39,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
         signed: true,
         httpOnly: true
       })
-      .redirect('/')
+      .json({ message: 'User authenticated!' })
   }
 }
 

@@ -1,6 +1,7 @@
 const form = document.body.querySelector('form')
 
 form.addEventListener('submit', async e => {
+  e.preventDefault()
   const formData = Object.fromEntries(new FormData(form))
 
   const url = '/user/authenticate'
@@ -11,5 +12,11 @@ form.addEventListener('submit', async e => {
     body: JSON.stringify(formData)
   }
 
-  await fetch(url, reqConfig)
+  const res = await fetch(url, reqConfig)
+
+  if (res.status === 200) {
+    window.location.href = '/'
+  } else {
+    alert('Invalid username or password!')
+  }
 })
