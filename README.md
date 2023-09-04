@@ -1,0 +1,3 @@
+## Notefy, a web app that allows you to write some notes.
+
+Don't know what to write here, so...
