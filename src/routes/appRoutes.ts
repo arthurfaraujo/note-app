@@ -4,6 +4,6 @@ import { noteListGet } from '../controllers/noteController'
 
 const routes = Router()
 
-routes.get('/', isAuthenticated, noteListGet)
+routes.get('/', /* isAuthenticated, */ noteListGet)
 
 export default routes

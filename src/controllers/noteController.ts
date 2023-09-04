@@ -6,21 +6,25 @@ export async function noteListGet(req: Request, res: Response) {
 }
 
 async function noteListGetData(req: Request, res: Response) {
-  const nickname = req.signedCookies.nickname
-  const notes = await Note.readAllByUser(nickname)
+  const { token } = req.body
 
-  res.json(notes)
+  const notes = await Note.readAllByUser(token.nickname)
+
+  return res.json(notes)
 }
 
 async function noteCreatePost(req: Request, res: Response) {
   const noteCreateData = req.body
-  const userNickname = req.signedCookies.nickname
+  const { nickname } = req.body.token
 
-  console.log(noteCreateData)
+  delete noteCreateData.token
 
-  const noteData = await Note.create({ ...noteCreateData, userNickname })
+  const noteData = await Note.create({
+    ...noteCreateData,
+    userNickname: nickname
+  })
 
-  res.json(noteData)
+  return res.json(noteData)
 }
 
 async function noteDelete(req: Request, res: Response) {

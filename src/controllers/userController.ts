@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
+import jwt from 'jsonwebtoken'
 
 interface ICookies {
   nickname: string
@@ -27,9 +28,21 @@ async function userAuthenticatePost(req: Request, res: Response) {
 
   if (!authenticated) {
     // throw new Error('Invalid credentials!')
-    res.status(401).json({ error: 'Invalid credentials!' })
+    res.status(401).json({ auth: false, token: 'Invalid credentials!' })
   } else {
-    return res
+    //jwt localStorage
+    console.log('P1')
+    const token = jwt.sign(
+      { nickname: authenticated.nickname },
+      process.env.JWT_SECRET as string,
+      { expiresIn: '1h' }
+    )
+    console.log('P2')
+
+    return res.json({ auth: true, token })
+
+    // normal cookie
+    /* return res
       .status(200)
       .cookie('nickname', authenticated.nickname, {
         signed: true,
@@ -39,7 +52,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
         signed: true,
         httpOnly: true
       })
-      .json({ message: 'User authenticated!' })
+      .json({ message: 'User authenticated!' }) */
   }
 }
 

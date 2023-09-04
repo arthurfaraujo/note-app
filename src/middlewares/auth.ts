@@ -1,19 +1,27 @@
 import { Request, Response, NextFunction } from 'express'
 import HttpException from '../exceptions/HttpException'
 import { authorizeUser } from '../models/Note'
+import jwt from 'jsonwebtoken'
+import { string } from 'zod'
 
 export async function isAuthenticated(
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void | Response> {
-  const { nickname } = req.signedCookies
+  try {
+    const { authorization } = req.headers
 
-  if (!nickname) {
-    return res.redirect('/user/signin')
+    const [, token] = authorization?.split(' ') || []
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string)
+
+    req.body.token = decoded
+
+    return next()
+  } catch (e) {
+    res.status(401).json({ error: 'Invalid token!' })
   }
-
-  return next()
 }
 
 export async function isAuthorized(
@@ -21,7 +29,7 @@ export async function isAuthorized(
   res: Response,
   next: NextFunction
 ): Promise<void | Response> {
-  const { nickname } = req.signedCookies
+  const { nickname } = req.body.token
   const id = Number(req.params.id)
 
   const authorized = await authorizeUser({ User: { nickname }, Note: { id } })
