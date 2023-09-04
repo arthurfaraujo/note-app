@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
-import Note, { INote } from '../models/Note'
+import Note from '../models/Note'
 
-async function noteListGet(req: Request, res: Response) {
+export async function noteListGet(req: Request, res: Response) {
   res.render('noteList')
 }
 

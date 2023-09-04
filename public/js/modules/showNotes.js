@@ -49,7 +49,7 @@ export function insertNote(noteData) {
 }
 
 async function showNotes() {
-  const notes = await fetch('/notes/data').then(res => res.json())
+  const notes = await fetch('/notes').then(res => res.json())
 
   notes.forEach(note => {
     insertNote(note)
