@@ -67,6 +67,14 @@ async function showNotes() {
   }
   const notes = await fetch(url, reqConfig).then(res => res.json())
 
+  if (notes.error) {
+    alert(
+      'There is a problem with your token, it may have expired or it is false. Please sign in again!'
+    )
+
+    removeToken()
+  }
+
   notes.forEach(note => {
     insertNote(note)
   })
