@@ -30,14 +30,12 @@ async function userAuthenticatePost(req: Request, res: Response) {
     // throw new Error('Invalid credentials!')
     res.status(401).json({ auth: false, token: 'Invalid credentials!' })
   } else {
-    //jwt localStorage
-    console.log('P1')
+    //jwt localStorage  
     const token = jwt.sign(
       { nickname: authenticated.nickname },
       process.env.JWT_SECRET as string,
       { expiresIn: '1h' }
     )
-    console.log('P2')
 
     return res.json({ auth: true, token })
 

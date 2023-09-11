@@ -20,7 +20,8 @@ export async function isAuthenticated(
 
     return next()
   } catch (e) {
-    res.status(401).json({ error: 'Invalid token!' })
+    /* return res.redirect('/user/signin') */
+    return res.status(401).json({ error: 'Invalid token!' })
   }
 }
 

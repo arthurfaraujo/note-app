@@ -3,7 +3,7 @@ import noteSend from './modules/sendNotes.js'
 import { isAuthenticated } from './modules/auth.js'
 
 if (isAuthenticated()) {
-  showNotes()
+  await showNotes()
   noteSend()
 } else {
   window.location.href = '/user/signin'
