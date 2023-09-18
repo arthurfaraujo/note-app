@@ -37,6 +37,8 @@ async function userAuthenticatePost(req: Request, res: Response) {
       { expiresIn: '1h' }
     )
 
+    console.log(token)
+
     return res.json({ auth: true, token })
 
     // normal cookie
