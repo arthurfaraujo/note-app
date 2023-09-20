@@ -15,7 +15,7 @@ async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   /* const userData =  */ await User.create(userCreateData)
 
-  res.redirect('/user/signin')
+  res.json({created: true})
 }
 
 async function userSigninGet(req: Request, res: Response) {
