@@ -1,5 +1,3 @@
-import { getDefaultHighWaterMark } from 'stream'
-
 class HttpException extends Error {
   status: number
   message: string

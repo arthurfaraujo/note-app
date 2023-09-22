@@ -33,7 +33,7 @@ export async function isAuthorized(
   const { nickname } = req.body.token
   const id = Number(req.params.id)
 
-  const authorized = await authorizeUser({ User: { nickname }, Note: { id } })
+  const authorized = await authorizeUser(nickname, id)
 
   if (!authorized) {
     return res.status(403).json({ message: 'Unauthorized!' })

@@ -2,11 +2,6 @@ import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
 import jwt from 'jsonwebtoken'
 
-interface ICookies {
-  nickname: string
-  name?: string | null
-}
-
 async function userCreateGet(req: Request, res: Response) {
   res.render('signup')
 }
@@ -32,7 +27,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
   } else {
     //jwt localStorage  
     const token = jwt.sign(
-      { nickname: authenticated.nickname },
+      { nickname: userData.nickname },
       process.env.JWT_SECRET as string,
       { expiresIn: '1h' }
     )
