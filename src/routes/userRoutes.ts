@@ -16,7 +16,7 @@ const signinSchema = z.object({
 const signupSchema = z.object({
   body: z.object({
     nickname: z.string().min(4),
-    name: z.string().nullish(z.string().min()),
+    name: z.string().nullish(),
     email: z.string().email(),
     password: z.string().min(8)
   })

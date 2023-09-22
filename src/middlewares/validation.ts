@@ -9,10 +9,14 @@ function validate(schema: Schema) {
         params: req.params,
         query: req.query
       })
-  
+
       next()
     } catch (e: any) {
-      return res.status(400).json(e.errors)
+      const errors = []
+      for (const error of e.errors) {
+        errors.push({ location: error.path[1], message: error.message })
+      }
+      return res.status(400).json({ errors })
     }
   }
 }
