@@ -17,11 +17,14 @@ form.addEventListener('submit', async e => {
   if (res.created) {
     window.location.href = '/user/signin'
   } else {
-    const errors = []
-    for (const error in res) {
-      errors.push(res[error].message)
-    }
+    for (const error of res.errors) {
+      const capitalizedLocation = error.location.charAt(0).toUpperCase() + error.location.slice(1)
 
-    alert(errors)
+      const string = error.message.replace(
+        'String',
+        capitalizedLocation
+      )
+      alert(string)
+    }
   }
 })
