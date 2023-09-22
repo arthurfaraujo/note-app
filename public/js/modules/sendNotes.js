@@ -40,7 +40,7 @@ function sendForm() {
         : alert('Error creating note!')
     })
   } else {
-    return 0
+    alert("The note don't have any content")
   }
 }
 
