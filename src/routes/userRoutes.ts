@@ -8,7 +8,7 @@ const routes = Router()
 
 const signinSchema = z.object({
   body: z.object({
-    nickname: z.string(),
+    nickname: z.string().min(4),
     password: z.string().min(8)
   })
 })

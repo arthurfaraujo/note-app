@@ -19,7 +19,17 @@ form.addEventListener('submit', async e => {
   if (res.auth) {
     setToken(res.token)
     window.location.href = '/'
-  } else {
-    alert(res.token)
+  } else if (res.error) {
+    alert(res.error)
+  } else if (res.errors) {
+    for (const error of res.errors) {
+      const capitalizedLocation = error.location.charAt(0).toUpperCase() + error.location.slice(1)
+
+      const string = error.message.replace(
+        'String',
+        capitalizedLocation
+      )
+      alert(string)
+    }
   }
 })

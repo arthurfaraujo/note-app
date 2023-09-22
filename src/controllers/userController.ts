@@ -28,7 +28,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
 
   if (!authenticated) {
     // throw new Error('Invalid credentials!')
-    res.status(401).json({ auth: false, token: 'Invalid credentials!' })
+    res.status(401).json({ auth: false, error: 'Invalid credentials!' })
   } else {
     //jwt localStorage  
     const token = jwt.sign(
