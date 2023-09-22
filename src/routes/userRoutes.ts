@@ -1,26 +1,10 @@
 import userController from '../controllers/userController'
 import { Router } from 'express'
-import z from 'zod'
+import { signinSchema, signupSchema } from '../schemas/userSchemas'
 import { isAuthenticated } from '../middlewares/auth'
 import validate from '../middlewares/validation'
 
 const routes = Router()
-
-const signinSchema = z.object({
-  body: z.object({
-    nickname: z.string().min(4),
-    password: z.string().min(8)
-  })
-})
-
-const signupSchema = z.object({
-  body: z.object({
-    nickname: z.string().min(4),
-    name: z.string().nullish(),
-    email: z.string().email(),
-    password: z.string().min(8)
-  })
-})
 
 routes.get('/signin', userController.userSigninGet)
 routes.post(
