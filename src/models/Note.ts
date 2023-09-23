@@ -1,7 +1,7 @@
 import { prisma } from '../../prisma/connection'
 import { INote, INoteCreate } from '../interfaces/noteInterfaces'
 
-async function create(Note: INoteCreate): Promise<INote> {
+async function create(Note: INoteCreate): Promise<boolean> {
   const note = await prisma.note.create({
     data: {
       title: Note.title || null,
@@ -11,7 +11,7 @@ async function create(Note: INoteCreate): Promise<INote> {
     }
   })
 
-  return note
+  return note ? true : false
 }
 
 async function readAllByUser(nickname: string): Promise<INote[]> {

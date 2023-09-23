@@ -14,17 +14,17 @@ async function noteListGetData(req: Request, res: Response) {
 }
 
 async function noteCreatePost(req: Request, res: Response) {
-  const noteCreateData = req.body
+  const noteData = req.body
   const { nickname } = req.body.token
 
-  delete noteCreateData.token
+  delete noteData.token
 
-  const noteData = await Note.create({
-    ...noteCreateData,
+  const created = await Note.create({
+    ...noteData,
     userNickname: nickname
   })
 
-  return res.json(noteData)
+  return res.json({ created })
 }
 
 async function noteDelete(req: Request, res: Response) {
