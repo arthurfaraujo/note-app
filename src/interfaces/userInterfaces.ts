@@ -1,7 +1,7 @@
 export interface IUser {
   nickname: string
   email: string
-  name: string | null
+  name: string
   notes?: object[]
   password: string
 }

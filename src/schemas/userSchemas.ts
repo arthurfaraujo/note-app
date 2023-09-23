@@ -10,7 +10,7 @@ export const signinSchema = z.object({
 export const signupSchema = z.object({
   body: z.object({
     nickname: z.string().min(4),
-    name: z.string().nullish(),
+    name: z.string().min(2),
     email: z.string().email(),
     password: z.string().min(8)
   })
