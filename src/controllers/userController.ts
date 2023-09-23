@@ -1,10 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
-
-interface ICookies {
-  nickname: string
-  name?: string | null
-}
+import jwt from 'jsonwebtoken'
 
 async function userCreateGet(req: Request, res: Response) {
   res.render('signup')
@@ -14,7 +10,7 @@ async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   /* const userData =  */ await User.create(userCreateData)
 
-  res.redirect('/user/signin')
+  res.json({created: true})
 }
 
 async function userSigninGet(req: Request, res: Response) {
@@ -27,9 +23,21 @@ async function userAuthenticatePost(req: Request, res: Response) {
 
   if (!authenticated) {
     // throw new Error('Invalid credentials!')
-    res.status(401).json({ error: 'Invalid credentials!' })
+    res.status(401).json({ auth: false, error: 'Invalid credentials!' })
   } else {
-    return res
+    //jwt localStorage  
+    const token = jwt.sign(
+      { nickname: userData.nickname },
+      process.env.JWT_SECRET as string,
+      { expiresIn: '1h' }
+    )
+
+    console.log(token)
+
+    return res.json({ auth: true, token })
+
+    // normal cookie
+    /* return res
       .status(200)
       .cookie('nickname', authenticated.nickname, {
         signed: true,
@@ -39,7 +47,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
         signed: true,
         httpOnly: true
       })
-      .json({ message: 'User authenticated!' })
+      .json({ message: 'User authenticated!' }) */
   }
 }
 

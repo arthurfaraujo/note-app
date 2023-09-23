@@ -4,21 +4,21 @@ import User from '../src/models/User'
 const seeds = {
   users: [
     {
-      nickname: 'dev',
+      nickname: 'devel',
       email: 'dev@gmail.com',
-      password: '1234',
+      password: '12345678',
       name: 'Arthur Felipe'
     },
     {
       nickname: 'johndoe',
       email: 'john@gmail.com',
-      password: '1234',
+      password: '12345678',
       name: 'John Albert Doe'
     },
     {
       nickname: 'imaginelosing',
       email: 'abracadabra@gmail.com',
-      password: '1234',
+      password: '12345678',
       name: 'Pedro Lima'
     }
   ],
@@ -27,19 +27,19 @@ const seeds = {
       title: 'uaaaa',
       content: 'ola mundo',
       type: 0,
-      userNickname: 'dev'
+      userNickname: 'devel'
     },
     {
       title: 'frts title proplayer',
       content: 'aaaaaaaaaaaaaaaa',
       type: 0,
-      userNickname: 'dev'
+      userNickname: 'devel'
     },
     {
       title: 'note-app rumbles',
       content: 'mano',
       type: 0,
-      userNickname: 'dev'
+      userNickname: 'devel'
     },
     {
       title: 'i love you',

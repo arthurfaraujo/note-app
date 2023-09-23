@@ -1,26 +1,30 @@
 import { Request, Response, NextFunction } from 'express'
-import Note, { INote } from '../models/Note'
+import Note from '../models/Note'
 
-async function noteListGet(req: Request, res: Response) {
+export async function noteListGet(req: Request, res: Response) {
   res.render('noteList')
 }
 
 async function noteListGetData(req: Request, res: Response) {
-  const nickname = req.signedCookies.nickname
-  const notes = await Note.readAllByUser(nickname)
+  const { token } = req.body
 
-  res.json(notes)
+  const notes = await Note.readAllByUser(token.nickname)
+
+  return res.json(notes)
 }
 
 async function noteCreatePost(req: Request, res: Response) {
-  const noteCreateData = req.body
-  const userNickname = req.signedCookies.nickname
+  const noteData = req.body
+  const { nickname } = req.body.token
 
-  console.log(noteCreateData)
+  delete noteData.token
 
-  const noteData = await Note.create({ ...noteCreateData, userNickname })
+  const created = await Note.create({
+    ...noteData,
+    userNickname: nickname
+  })
 
-  res.json(noteData)
+  return res.json({ created })
 }
 
 async function noteDelete(req: Request, res: Response) {

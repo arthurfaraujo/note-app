@@ -1,28 +1,8 @@
 import { prisma } from '../../prisma/connection'
 import bcrypt from 'bcrypt'
+import { IUser, IUserAuthenticate, IUserFound } from '../interfaces/userInterfaces'
 
-export interface IUser {
-  nickname: string
-  email?: string | null
-  name?: string | null
-  notes?: object[] | null
-  password?: string | null
-}
-
-interface IUserCreateData {
-  nickname: string
-  email: string
-  password: string
-  name: string | null
-}
-
-interface IUserAuthenticateData {
-  nickname: string
-  password: string
-  name?: string | null
-}
-
-async function create(User: IUserCreateData): Promise<IUser> {
+async function create(User: IUser): Promise<IUser | null> {
   User.password = await bcrypt.hash(
     User.password,
     Number(process.env.SALT_ROUNDS) || 10
@@ -40,9 +20,7 @@ async function create(User: IUserCreateData): Promise<IUser> {
   return user
 }
 
-async function readByNickname(
-  nickname: string
-): Promise<IUserAuthenticateData | null> {
+async function readByNickname(nickname: string): Promise<IUserFound | null> {
   const user = await prisma.user.findUnique({
     where: {
       nickname
@@ -57,26 +35,19 @@ async function readByNickname(
   return user
 }
 
-async function authenticate(
-  User: IUserAuthenticateData
-): Promise<IUser | null> {
+async function authenticate(User: IUserAuthenticate): Promise<boolean> {
   const user = await readByNickname(User.nickname)
 
   if (!user) {
-    return null
+    return false
   } else {
     const passwordMatch = await bcrypt.compare(User.password, user.password)
 
-    return passwordMatch
-      ? {
-          nickname: user.nickname,
-          name: user.name
-        }
-      : null
+    return passwordMatch && true
   }
 }
 
-async function isAuthenticated(User: IUser): Promise<IUser | null> {
+async function isAuthenticated(User: IUser): Promise<boolean> {
   const { nickname } = User
 
   const user = await prisma.user.findUnique({
@@ -85,7 +56,7 @@ async function isAuthenticated(User: IUser): Promise<IUser | null> {
     }
   })
 
-  return user
+  return user ? true : false
 }
 
 export default {

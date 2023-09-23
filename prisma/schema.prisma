@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
@@ -11,7 +11,7 @@ model user {
   nickname String  @id
   email    String  @unique
   password String
-  name     String?
+  name     String
   notes    note[]
 }
 

@@ -1,16 +1,25 @@
+import { removeToken, getToken } from './auth.js'
+
 function noteRemove(note) {
   const deleteButton = note.querySelector('.delete')
 
   deleteButton.addEventListener('click', async e => {
     const noteId = note.id.split('-')[1]
 
-    await fetch(`/notes/${noteId}`, {
-      method: 'DELETE'
-    })
+    const url = `/notes/${noteId}`
+
+    const reqConfig = {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    }
+
+    await fetch(url, reqConfig)
       .then(res => res.ok)
       .then(ok => {
         if (ok) note.remove()
-        else alert('Note not deleted!')
+        else alert('Failed to delete the note!')
       })
   })
 }
@@ -49,7 +58,22 @@ export function insertNote(noteData) {
 }
 
 async function showNotes() {
-  const notes = await fetch('/notes/data').then(res => res.json())
+  const url = '/notes'
+  const reqConfig = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${getToken()}`
+    }
+  }
+  const notes = await fetch(url, reqConfig).then(res => res.json())
+
+  if (notes.error) {
+    alert(
+      'There is a problem with your token, it may have expired or it is false. Please sign in again!'
+    )
+
+    removeToken()
+  }
 
   notes.forEach(note => {
     insertNote(note)
@@ -61,14 +85,7 @@ async function showNotes() {
 function signoutButton() {
   const signoutButton = document.body.querySelector('#signoutButton')
 
-  signoutButton.addEventListener('click', async e => {
-    await fetch('/user/signout')
-      .then(res => res.status)
-      .then(status => {
-        if (status === 200) window.location.href = '/'
-        else alert('Erro ao sair!')
-      })
-  })
+  signoutButton.addEventListener('click', removeToken)
 }
 
 export default showNotes
