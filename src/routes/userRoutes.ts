@@ -23,5 +23,6 @@ routes.post(
   userController.userCreatePost
 )
 routes.get('/signout', isAuthenticated, userController.userSignoutGet)
+routes.post('/token/verify', userController.userTokenVerify)
 
 export default routes

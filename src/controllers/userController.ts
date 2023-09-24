@@ -10,7 +10,7 @@ async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   /* const userData =  */ await User.create(userCreateData)
 
-  res.json({created: true})
+  res.json({ created: true })
 }
 
 async function userSigninGet(req: Request, res: Response) {
@@ -25,7 +25,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
     // throw new Error('Invalid credentials!')
     res.status(401).json({ auth: false, error: 'Invalid credentials!' })
   } else {
-    //jwt localStorage  
+    //jwt localStorage
     const token = jwt.sign(
       { nickname: userData.nickname },
       process.env.JWT_SECRET as string,
@@ -55,10 +55,23 @@ async function userSignoutGet(req: Request, res: Response) {
   return res.clearCookie('nickname').clearCookie('name').end()
 }
 
+async function userTokenVerify(req: Request, res: Response) {
+  const token = req.body.token
+
+  try {
+    const tokenValid = jwt.verify(token, process.env.JWT_SECRET as string)
+
+    return res.json({ valid: true })
+  } catch (e) {
+    return res.status(401).json({ valid: false })
+  }
+}
+
 export default {
   userSigninGet,
   userCreateGet,
   userCreatePost,
   userAuthenticatePost,
-  userSignoutGet
+  userSignoutGet,
+  userTokenVerify
 }
