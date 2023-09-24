@@ -21,24 +21,27 @@ function openForm() {
 }
 
 function sendForm() {
-  const createNoteData = Object.fromEntries(new FormData(createNoteForm))
-  const { content } = createNoteData
+  const noteData = Object.fromEntries(new FormData(createNoteForm))
+  const { content } = noteData
 
   closeForm()
 
   if (content) {
-    fetch('/notes', {
+    const url = '/notes'
+    const reqConfig = {
       method: 'POST',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
         Authorization: `Bearer ${getToken()}`
       },
-      body: JSON.stringify(createNoteData)
-    }).then(async res => {
-      res.status === 200
-        ? insertNote(await res.json())
-        : alert('Error creating note!')
-    })
+      body: JSON.stringify(noteData)
+    }
+
+    fetch(url, reqConfig)
+      .then(async res => res.json())
+      .then(res =>
+        res.created ? insertNote(noteData) : alert('Something went wrong')
+      )
   } else {
     alert("The note don't have any content")
   }
