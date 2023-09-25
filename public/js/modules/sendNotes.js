@@ -40,7 +40,9 @@ function sendForm() {
     fetch(url, reqConfig)
       .then(async res => res.json())
       .then(res =>
-        res.created ? insertNote(noteData) : alert('Something went wrong')
+        res.created
+          ? insertNote({ ...noteData, id: res.id })
+          : alert('Something went wrong')
       )
   } else {
     alert("The note don't have any content")

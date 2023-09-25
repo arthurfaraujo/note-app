@@ -12,3 +12,8 @@ export interface INote {
   type: number | null
   userNickname: string
 }
+
+export interface INoteCreated {
+  created: boolean
+  id?: number
+}
