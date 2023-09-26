@@ -35,5 +35,5 @@ export function setToken(token) {
 
 export function removeToken() {
   if (getToken()) localStorage.removeItem('@notefy:token')
-  window.location.href = '/user/signin'
+  window.location.href = '/signin'
 }

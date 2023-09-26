@@ -21,7 +21,7 @@ form.addEventListener('submit', async e => {
   if (form.checkValidity()) {
     const formData = Object.fromEntries(new FormData(form))
 
-    const url = '/user/signup'
+    const url = ' /signup'
 
     const reqConfig = {
       method: 'POST',
@@ -32,7 +32,7 @@ form.addEventListener('submit', async e => {
     const res = await fetch(url, reqConfig).then(res => res.json())
 
     if (res.created) {
-      window.location.href = '/user/signin'
+      window.location.href = '/signin'
     } else {
       for (const error of res.errors) {
         const capitalizedLocation =

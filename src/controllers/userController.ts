@@ -51,9 +51,9 @@ async function userAuthenticatePost(req: Request, res: Response) {
   }
 }
 
-async function userSignoutGet(req: Request, res: Response) {
+/* async function userSignoutGet(req: Request, res: Response) {
   return res.clearCookie('nickname').clearCookie('name').end()
-}
+} */
 
 async function userTokenVerify(req: Request, res: Response) {
   const token = req.body.token
@@ -71,7 +71,7 @@ export default {
   userSigninGet,
   userCreateGet,
   userCreatePost,
-  userAuthenticatePost,
-  userSignoutGet,
+  userAuthenticatePost /* 
+  userSignoutGet, */,
   userTokenVerify
 }

@@ -6,5 +6,5 @@ if (await isAuthenticated()) {
   await showNotes()
   noteSend()
 } else {
-  window.location.href = '/user/signin'
+  window.location.href = '/signin'
 }
