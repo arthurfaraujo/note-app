@@ -11,7 +11,7 @@ async function create(Note: INoteCreate): Promise<INoteCreated> {
     }
   })
 
-  return note ? {created: true, id: note.id} : {created: false}
+  return {created: true, id: note.id}
 }
 
 async function readAllByUser(nickname: string): Promise<INote[]> {

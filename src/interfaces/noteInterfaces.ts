@@ -15,5 +15,5 @@ export interface INote {
 
 export interface INoteCreated {
   created: boolean
-  id?: number
+  id: number
 }

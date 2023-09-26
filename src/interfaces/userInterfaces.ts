@@ -1,3 +1,5 @@
+import { boolean } from "zod"
+
 export interface IUser {
   nickname: string
   email: string
@@ -13,4 +15,10 @@ export interface IUserAuthenticate {
 
 export interface IUserFound extends IUserAuthenticate {
   name: string | null
+}
+
+export interface IUserCreated {
+  created: boolean
+  code?: string
+  location?: string
 }

@@ -33,7 +33,7 @@ form.addEventListener('submit', async e => {
 
     if (res.created) {
       window.location.href = '/signin'
-    } else {
+    } else if (res.errors) {
       for (const error of res.errors) {
         const capitalizedLocation =
           error.location.charAt(0).toUpperCase() + error.location.slice(1)
@@ -41,6 +41,8 @@ form.addEventListener('submit', async e => {
         const string = error.message.replace('String', capitalizedLocation)
         alert(string)
       }
+    } else {
+      alert('The ' + res.location + ' is already taken! Try another one.')
     }
   } else {
     const inputFields = form.querySelectorAll('.inputField')

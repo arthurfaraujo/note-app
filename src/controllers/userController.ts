@@ -8,9 +8,13 @@ async function userCreateGet(req: Request, res: Response) {
 
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
-  /* const userData =  */ await User.create(userCreateData)
+  const user = await User.create(userCreateData)
 
-  res.json({ created: true })
+  if (user.created) {
+    return res.status(201).json({ ...user })
+  } else {
+    return res.status(400).json({ ...user })
+  }
 }
 
 async function userSigninGet(req: Request, res: Response) {
