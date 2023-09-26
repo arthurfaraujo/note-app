@@ -47,7 +47,7 @@ async function readByNickname(nickname: string): Promise<IUserFound | null> {
 async function authenticate(User: IUserAuthenticate): Promise<boolean> {
   const user = await readByNickname(User.nickname)
 
-  if (!user) {
+  if (!user?.password) {
     return false
   } else {
     const passwordMatch = await bcrypt.compare(User.password, user.password)

@@ -39,19 +39,6 @@ async function userAuthenticatePost(req: Request, res: Response) {
     console.log(token)
 
     return res.json({ auth: true, token })
-
-    // normal cookie
-    /* return res
-      .status(200)
-      .cookie('nickname', authenticated.nickname, {
-        signed: true,
-        httpOnly: true
-      })
-      .cookie('name', authenticated.name, {
-        signed: true,
-        httpOnly: true
-      })
-      .json({ message: 'User authenticated!' }) */
   }
 }
 
