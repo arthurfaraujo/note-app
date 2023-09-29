@@ -6,7 +6,7 @@ form.addEventListener('submit', async e => {
   e.preventDefault()
   const formData = Object.fromEntries(new FormData(form))
 
-  const url = '/user/authenticate'
+  const url = '/signin'
 
   const reqConfig = {
     method: 'POST',

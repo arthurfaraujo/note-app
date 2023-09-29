@@ -8,9 +8,13 @@ async function userCreateGet(req: Request, res: Response) {
 
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
-  /* const userData =  */ await User.create(userCreateData)
+  const user = await User.create(userCreateData)
 
-  res.json({created: true})
+  if (user.created) {
+    return res.status(201).json({ ...user })
+  } else {
+    return res.status(400).json({ ...user })
+  }
 }
 
 async function userSigninGet(req: Request, res: Response) {
@@ -25,7 +29,7 @@ async function userAuthenticatePost(req: Request, res: Response) {
     // throw new Error('Invalid credentials!')
     res.status(401).json({ auth: false, error: 'Invalid credentials!' })
   } else {
-    //jwt localStorage  
+    //jwt localStorage
     const token = jwt.sign(
       { nickname: userData.nickname },
       process.env.JWT_SECRET as string,
@@ -35,30 +39,30 @@ async function userAuthenticatePost(req: Request, res: Response) {
     console.log(token)
 
     return res.json({ auth: true, token })
-
-    // normal cookie
-    /* return res
-      .status(200)
-      .cookie('nickname', authenticated.nickname, {
-        signed: true,
-        httpOnly: true
-      })
-      .cookie('name', authenticated.name, {
-        signed: true,
-        httpOnly: true
-      })
-      .json({ message: 'User authenticated!' }) */
   }
 }
 
-async function userSignoutGet(req: Request, res: Response) {
+/* async function userSignoutGet(req: Request, res: Response) {
   return res.clearCookie('nickname').clearCookie('name').end()
+} */
+
+async function userTokenVerify(req: Request, res: Response) {
+  const token = req.body.token
+
+  try {
+    const tokenValid = jwt.verify(token, process.env.JWT_SECRET as string)
+
+    return res.json({ valid: true })
+  } catch (e) {
+    return res.status(401).json({ valid: false })
+  }
 }
 
 export default {
   userSigninGet,
   userCreateGet,
   userCreatePost,
-  userAuthenticatePost,
-  userSignoutGet
+  userAuthenticatePost /* 
+  userSignoutGet, */,
+  userTokenVerify
 }

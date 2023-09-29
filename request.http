@@ -6,7 +6,7 @@
 
 ### Auth a user
 // @name signin
-POST {{host}}/user/authenticate
+POST {{host}}/signin
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 ###
 
 ### Create a user with correct data
-POST {{host}}/user/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 ###
 
 ### Create a user with invalid email
-POST {{host}}/user/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {
@@ -43,7 +43,7 @@ Content-Type: application/json
 ###
 
 ### Create a user with invalid password
-POST {{host}}/user/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {
@@ -56,7 +56,7 @@ Content-Type: application/json
 ###
 
 ### Create a user with invalid nickname
-POST {{host}}/user/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {
@@ -69,7 +69,7 @@ Content-Type: application/json
 ###
 
 ### Create a user with invalid name
-POST {{host}}/user/signup
+POST {{host}}/signup
 Content-Type: application/json
 
 {

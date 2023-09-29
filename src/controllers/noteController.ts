@@ -19,12 +19,12 @@ async function noteCreatePost(req: Request, res: Response) {
 
   delete noteData.token
 
-  const created = await Note.create({
+  const result = await Note.create({
     ...noteData,
     userNickname: nickname
   })
 
-  return res.json({ created })
+  return res.json({ created: result.created, id: result.id  })
 }
 
 async function noteDelete(req: Request, res: Response) {

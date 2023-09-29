@@ -1,23 +1,32 @@
 import { prisma } from '../../prisma/connection'
 import bcrypt from 'bcrypt'
-import { IUser, IUserAuthenticate, IUserFound } from '../interfaces/userInterfaces'
+import {
+  IUser,
+  IUserAuthenticate,
+  IUserFound,
+  IUserCreated
+} from '../interfaces/userInterfaces'
 
-async function create(User: IUser): Promise<IUser | null> {
+async function create(User: IUser): Promise<IUserCreated> {
   User.password = await bcrypt.hash(
     User.password,
     Number(process.env.SALT_ROUNDS) || 10
   )
 
-  const user = await prisma.user.create({
-    data: {
-      nickname: User.nickname,
-      email: User.email,
-      name: User.name,
-      password: User.password
-    }
-  })
+  try {
+    const user = await prisma.user.create({
+      data: {
+        nickname: User.nickname,
+        email: User.email,
+        name: User.name,
+        password: User.password
+      }
+    })
 
-  return user
+    return { created: true }
+  } catch (e: any) {
+    return { created: false, code: e.code, location: e.meta.target }
+  }
 }
 
 async function readByNickname(nickname: string): Promise<IUserFound | null> {
@@ -38,7 +47,7 @@ async function readByNickname(nickname: string): Promise<IUserFound | null> {
 async function authenticate(User: IUserAuthenticate): Promise<boolean> {
   const user = await readByNickname(User.nickname)
 
-  if (!user) {
+  if (!user?.password) {
     return false
   } else {
     const passwordMatch = await bcrypt.compare(User.password, user.password)

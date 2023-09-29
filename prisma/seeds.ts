@@ -30,6 +30,144 @@ const seeds = {
       userNickname: 'devel'
     },
     {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
+      title: 'uaaaa',
+      content: 'ola mundo',
+      type: 0,
+      userNickname: 'devel'
+    },
+    {
       title: 'frts title proplayer',
       content: 'aaaaaaaaaaaaaaaa',
       type: 0,

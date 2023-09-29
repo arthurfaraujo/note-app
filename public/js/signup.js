@@ -21,7 +21,7 @@ form.addEventListener('submit', async e => {
   if (form.checkValidity()) {
     const formData = Object.fromEntries(new FormData(form))
 
-    const url = '/user/signup'
+    const url = ' /signup'
 
     const reqConfig = {
       method: 'POST',
@@ -32,8 +32,8 @@ form.addEventListener('submit', async e => {
     const res = await fetch(url, reqConfig).then(res => res.json())
 
     if (res.created) {
-      window.location.href = '/user/signin'
-    } else {
+      window.location.href = '/signin'
+    } else if (res.errors) {
       for (const error of res.errors) {
         const capitalizedLocation =
           error.location.charAt(0).toUpperCase() + error.location.slice(1)
@@ -41,6 +41,8 @@ form.addEventListener('submit', async e => {
         const string = error.message.replace('String', capitalizedLocation)
         alert(string)
       }
+    } else {
+      alert('The ' + res.location + ' is already taken! Try another one.')
     }
   } else {
     const inputFields = form.querySelectorAll('.inputField')
