@@ -1,11 +1,10 @@
-import { Request, Response, NextFunction } from 'express'
-import HttpException from '../exceptions/HttpException'
+import { Response, NextFunction } from 'express'
 import { authorizeUser } from '../models/Note'
 import jwt from 'jsonwebtoken'
-import { string } from 'zod'
+import { ITokenRequest } from '../interfaces/authInterfaces'
 
 export async function isAuthenticated(
-  req: Request,
+  req: ITokenRequest,
   res: Response,
   next: NextFunction
 ): Promise<void | Response> {
@@ -16,7 +15,7 @@ export async function isAuthenticated(
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string)
 
-    req.body.token = decoded
+    req.token = decoded
 
     return next()
   } catch (e) {
@@ -26,11 +25,11 @@ export async function isAuthenticated(
 }
 
 export async function isAuthorized(
-  req: Request,
+  req: ITokenRequest,
   res: Response,
   next: NextFunction
 ): Promise<void | Response> {
-  const { nickname } = req.body.token
+  const { nickname } = req.token as { nickname: string, iat: number, exp: number }
   const id = Number(req.params.id)
 
   const authorized = await authorizeUser(nickname, id)
