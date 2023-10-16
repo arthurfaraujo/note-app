@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
 import jwt from 'jsonwebtoken'
+import { createNewUser } from '../services/sendEmail'
+import { create } from 'domain'
 
 async function userCreateGet(req: Request, res: Response) {
   res.render('signup')
@@ -9,12 +11,16 @@ async function userCreateGet(req: Request, res: Response) {
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   const user = await User.create(userCreateData)
+  const email = req.body.email
 
   if (user.created) {
-    return res.status(201).json({ ...user })
+    res.status(201).json({ ...user })
   } else {
     return res.status(400).json({ ...user })
   }
+
+  await createNewUser(email)
+
 }
 
 async function userSigninGet(req: Request, res: Response) {
