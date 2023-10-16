@@ -38,6 +38,7 @@
     "express-async-errors": "^3.1.1",
     "express-ejs-layouts": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.6",
     "zod": "^3.22.2"
   },
   "devDependencies": {
@@ -48,6 +49,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.4.9",
+    "@types/nodemailer": "^6.4.11",
     "dotenv": "^16.3.1",
     "eslint": "^8.46.0",
     "eslint-config-standard": "^17.1.0",
