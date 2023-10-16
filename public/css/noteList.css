@@ -20,8 +20,9 @@ body {
   padding: 20px;
 }
 .createNote {
-  max-width: 800px;
+  max-width: 500px;
   width: 80%;
+  min-height: 45px;
   display: flex;
   flex-wrap: wrap;
   justify-content: end;
@@ -37,20 +38,24 @@ body {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 5px;
+  /* outline: 1px dotted black; */
 }
 
-.createNoteForm input {
+.createNoteForm input,
+.createNoteForm textarea {
   width: 100%;
   padding: 5px;
   font-size: 1.2rem;
   border: none;
   outline: none;
   cursor: pointer;
+  /* outline: 1px dotted black; */
 }
 
-.createNoteForm input::placeholder {
-  color: #000000;
+.createNoteForm input::placeholder, .createNoteForm textarea::placeholder {
+  color: #616161;
 }
 
 .createNoteSend {
@@ -60,6 +65,15 @@ body {
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
+}
+
+.createNoteContent {
+  height: 30px;
+  overflow-y: hidden;
+  line-height: 20px;
+  resize: none;
+  font-family: inherit;
+  /* outline: 1px dotted black; */
 }
 
 .noteList {

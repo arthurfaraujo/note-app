@@ -10,6 +10,8 @@ async function noteSend() {
   createNoteContent.addEventListener('click', openForm)
 
   createNoteSend.addEventListener('click', sendForm)
+
+  createNoteContent.addEventListener('input', autoResizeTextarea)
 }
 
 function openForm() {
@@ -44,8 +46,6 @@ function sendForm() {
           ? insertNote({ ...noteData, id: res.id })
           : alert('Something went wrong')
       )
-  } else {
-    alert("The note don't have any content")
   }
 }
 
@@ -54,7 +54,12 @@ function closeForm() {
   createNoteTitle.style.display = 'none'
   createNoteTitle.value = null
   createNoteContent.style.fontSize = '1.2rem'
+  createNoteContent.style.height = '30px'
   createNoteContent.value = null
+}
+
+function autoResizeTextarea() {
+  createNoteContent.style.height = createNoteContent.scrollHeight + 'px'
 }
 
 export default noteSend
