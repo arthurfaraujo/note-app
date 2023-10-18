@@ -44,6 +44,19 @@ async function readByNickname(nickname: string): Promise<IUserFound | null> {
   return user
 }
 
+async function readEmailByNickname(nickname: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      nickname
+    },
+    select: {
+      email: true
+    }
+  })
+
+  return user?.email
+}
+
 async function authenticate(User: IUserAuthenticate): Promise<boolean> {
   const user = await readByNickname(User.nickname)
 
@@ -71,5 +84,6 @@ async function isAuthenticated(User: IUser): Promise<boolean> {
 export default {
   create,
   authenticate,
-  isAuthenticated
+  isAuthenticated,
+  readEmailByNickname
 }
