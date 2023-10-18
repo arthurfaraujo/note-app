@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import User from '../models/User'
 import jwt from 'jsonwebtoken'
+import { createNewUser, tryLogin } from '../services/sendEmail'
 
 async function userCreateGet(req: Request, res: Response) {
   res.render('signup')
@@ -9,12 +10,16 @@ async function userCreateGet(req: Request, res: Response) {
 async function userCreatePost(req: Request, res: Response) {
   const userCreateData = req.body
   const user = await User.create(userCreateData)
+  const email = req.body.email
 
   if (user.created) {
-    return res.status(201).json({ ...user })
+    res.status(201).json({ ...user })
   } else {
     return res.status(400).json({ ...user })
   }
+
+  await createNewUser(email)
+
 }
 
 async function userSigninGet(req: Request, res: Response) {
@@ -28,6 +33,10 @@ async function userAuthenticatePost(req: Request, res: Response) {
   if (!authenticated) {
     // throw new Error('Invalid credentials!')
     res.status(401).json({ auth: false, error: 'Invalid credentials!' })
+
+    const email = await User.readEmailByNickname(userData.nickname)
+
+    if (email) await tryLogin(email)
   } else {
     //jwt localStorage
     const token = jwt.sign(
@@ -36,15 +45,9 @@ async function userAuthenticatePost(req: Request, res: Response) {
       { expiresIn: '1h' }
     )
 
-    console.log(token)
-
     return res.json({ auth: true, token })
   }
 }
-
-/* async function userSignoutGet(req: Request, res: Response) {
-  return res.clearCookie('nickname').clearCookie('name').end()
-} */
 
 async function userTokenVerify(req: Request, res: Response) {
   const token = req.body.token
