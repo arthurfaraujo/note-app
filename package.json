@@ -7,7 +7,7 @@
     "node": "18"
   },
   "scripts": {
-    "dev": "npx prisma migrate dev && npm start",
+    "dev": "npm start",
     "start": "npx tsx --watch --watch-preserve-output src/note-app.ts",
     "build": "npx tsup src",
     "dist": "node dist/note-app.js",
