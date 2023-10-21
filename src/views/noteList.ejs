@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,26 +11,29 @@
   <body>
     <%- include('partials/navBar') %>
     <main class="container">
-      <div class="createNote">
-        <form class="createNoteForm" contenteditable="false">
-          <input
-            type="text"
-            class="createNoteTitle"
-            name="title"
-            placeholder="Note title"
-            spellcheck="false"
-            style="display: none"
-          />
-          <textarea
-            class="createNoteContent"
-            name="content"
-            spellcheck="false"
-            placeholder="Create a note..."
-          ></textarea>
-        </form>
-        <button class="createNoteSend" style="display: none">Fechar</button>
+      <%- include('partials/menu') %>
+      <div class="content">
+        <div class="createNote">
+          <form class="createNoteForm" contenteditable="false">
+            <input
+              type="text"
+              class="createNoteTitle"
+              name="title"
+              placeholder="Note title"
+              spellcheck="false"
+              style="display: none"
+            />
+            <textarea
+              class="createNoteContent"
+              name="content"
+              spellcheck="false"
+              placeholder="Create a note..."
+            ></textarea>
+          </form>
+          <button class="createNoteSend" style="display: none">Fechar</button>
+        </div>
+        <div id="root" class="noteList"></div>
       </div>
-      <div id="root" class="noteList"></div>
     </main>
     <script type="module" src="js/noteList.js"></script>
   </body>
