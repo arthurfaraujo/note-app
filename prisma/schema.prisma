@@ -8,18 +8,29 @@ datasource db {
 }
 
 model user {
-  nickname String  @id
-  email    String  @unique
-  password String
-  name     String
-  notes    note[]
+  nickname   String     @id
+  email      String     @unique
+  password   String
+  name       String
+  notes      note[]
+  categories category[]
 }
 
 model note {
-  id           Int     @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   title        String?
   content      String
   type         Int?
   userNickname String
-  user         user    @relation(fields: [userNickname], references: [nickname])
+  user         user      @relation(fields: [userNickname], references: [nickname])
+  categoryId   Int?
+  category     category? @relation(fields: [categoryId], references: [id])
+}
+
+model category {
+  id           Int    @id @default(autoincrement())
+  name         String
+  userNickname String
+  user         user   @relation(fields: [userNickname], references: [nickname])
+  notes        note[]
 }
