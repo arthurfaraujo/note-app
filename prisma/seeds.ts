@@ -1,3 +1,4 @@
+import Category from '../src/models/Category'
 import Note from '../src/models/Note'
 import User from '../src/models/User'
 
@@ -197,6 +198,24 @@ const seeds = {
       type: 0,
       userNickname: 'johndoe'
     }
+  ],
+  categories: [
+    {
+      name: 'ofijsf',
+      userNickname: 'devel'
+    },
+    {
+      name: 'dsaddos',
+      userNickname: 'devel'
+    },
+    {
+      name: 'Trabalho',
+      userNickname: 'johndoe'
+    },
+    {
+      name: 'Estudos',
+      userNickname: 'johndoe'
+    }
   ]
 }
 
@@ -212,9 +231,16 @@ const createNotes = async () => {
   }
 }
 
+const createCategories = async () => {
+  for (const category of seeds.categories) {
+    await Category.create(category)
+  }
+}
+
 const seed = async () => {
   await createUsers()
   await createNotes()
+  await createCategories()
 }
 
 seed()

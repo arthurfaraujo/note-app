@@ -1,6 +1,7 @@
 import 'express-async-errors'
 import express from 'express'
 import noteRoutes from './routes/noteRoutes'
+import categoryRoutes from './routes/categoryRoutes'
 import userRoutes from './routes/userRoutes'
 import appRoutes from './routes/appRoutes'
 import morgan from 'morgan'
@@ -19,6 +20,7 @@ server.use(express.static('public'))
 server.set('view engine', 'ejs')
 server.set('views', 'src/views')
 
+server.use('/categories', categoryRoutes)
 server.use('/notes', noteRoutes)
 server.use('/user', userRoutes)
 server.use('/', appRoutes)
