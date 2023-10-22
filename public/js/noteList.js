@@ -7,7 +7,7 @@ import addMenu from './modules/menu.js'
 if (await isAuthenticated()) {
   addMenu()
   noteSend()
-  Promise.all([showNotes(), showCategories()]).then(console.log('hahahahah'))
+  Promise.all([showNotes(), showCategories()])
 } else {
   window.location.href = '/signin'
 }

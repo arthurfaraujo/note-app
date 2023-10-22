@@ -1,12 +1,13 @@
-// import { getToken } from './auth.js'
+import { getToken } from './auth.js'
+import { showNotes } from './showNotes.js'
 
 const categoryList = document.body.querySelector('.categories')
-const categoriesTeste = [
+/* const categoriesTeste = [
   { name: 'teste1' },
   { name: 'teste2' },
   { name: 'teste3' },
   { name: 'teste4' }
-]
+] */
 
 function generateView(categoryData) {
   const category = `
@@ -26,10 +27,11 @@ function insertCategory(categoryData) {
   const category = generateView(categoryData)
 
   categoryList.insertAdjacentHTML('beforeend', category)
+  categoryList.children[categoryList.children.length - 1].addEventListener('click', async() => await showNotes(categoryData.id))
 }
 
 async function showCategories() {
-  /* const url = '/categories'
+  const url = '/categories'
   const reqConfig = {
     method: 'GET',
     headers: {
@@ -41,11 +43,10 @@ async function showCategories() {
 
   categories.forEach(category => {
     insertCategory(category)
-  }) */
-
-  categoriesTeste.forEach(category => {
-    insertCategory(category)
   })
+  /* categoriesTeste.forEach(category => {
+    insertCategory(category)
+  }) */
 }
 
 export default showCategories

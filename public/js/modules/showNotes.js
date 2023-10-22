@@ -1,5 +1,10 @@
 import { removeToken, getToken } from './auth.js'
 
+const noteList = document.body.querySelector('#root')
+const allNotesBtn = document.body.querySelector('#notes')
+
+allNotesBtn.addEventListener('click', async () => await showNotes())
+
 function noteRemove(note) {
   const deleteButton = note.querySelector('.delete')
 
@@ -48,7 +53,6 @@ function generateView(noteData) {
 }
 
 export function insertNote(noteData) {
-  const noteList = document.body.querySelector('#root')
   const note = generateView(noteData)
 
   noteList.insertAdjacentHTML('afterbegin', note)
@@ -57,8 +61,11 @@ export function insertNote(noteData) {
   noteRemove(currentNote)
 }
 
-async function showNotes() {
-  const url = '/notes'
+export async function showNotes(categoryId) {
+  const url = categoryId ? `/categories/${categoryId}` : '/notes'
+
+  noteList.innerHTML = ''
+
   const reqConfig = {
     method: 'GET',
     headers: {
