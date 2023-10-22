@@ -186,7 +186,8 @@ body {
 }
 
 .menu {
-  width: 20%;
+  max-width: 15%;
+  min-width: 15rem;
   height: fit-content;
   display: flex;
   flex-flow: row wrap;
@@ -254,6 +255,7 @@ body {
 
 .content {
   max-width: 100%;
+  min-width: 80%;
   /* width: 80%; */
   display: flex;
   justify-content: center;
