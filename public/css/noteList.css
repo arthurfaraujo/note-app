@@ -15,7 +15,7 @@ body {
   width: 100%;
   height: fit-content;
   display: flex;
-  flex-flow: row wrap;
+  /* flex-flow: row wrap; */
   /* gap: 40px; */
   /* padding: 20px; */
 }
@@ -32,7 +32,7 @@ body {
   border-radius: 5px;
   padding: 5px;
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.15);
-  outline: 1px dotted black;
+  /* outline: 1px dotted black; */
 }
 
 .createNoteForm {
@@ -84,13 +84,13 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 15px;
+  gap: 10px;
 }
 
 .note {
-  max-width: 280px;
-  width: 46%;
-  min-width: 80px;
+  max-width: 300px;
+  /* width: 46%; */
+  min-width: fit-content;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -193,11 +193,11 @@ body {
   gap: .35rem;
   /* padding: .5rem; */
   /* transition: .2s; */
-  outline: 1px dotted black;
+  /* outline: 1px dotted black; */
 }
 
 .menu.unactive {
-  min-width: 4%;
+  width: 4%;
   /* width: fit-content; */
   max-width: 3rem;
 }
@@ -254,14 +254,14 @@ body {
 
 .content {
   max-width: 100%;
-  width: 80%;
+  /* width: 80%; */
   display: flex;
   justify-content: center;
   align-content: flex-start;
   flex-flow: row wrap;
   gap: 20px;
   padding: 20px;
-  outline: 1px dotted black;
+  /* outline: 1px dotted black; */
 }
 
 @media screen and (min-width: 620px) {
