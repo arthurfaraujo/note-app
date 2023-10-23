@@ -91,6 +91,8 @@ body {
   max-width: 300px;
   /* width: 46%; */
   min-width: fit-content;
+  /* min-height: 70px;
+  max-height: 200px; */
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -187,7 +189,8 @@ body {
 
 .menu {
   max-width: 15%;
-  min-width: 15rem;
+  width: fit-content;
+  min-width: 5rem;
   height: fit-content;
   display: flex;
   flex-flow: row wrap;
@@ -210,6 +213,10 @@ body {
 
 .menu.unactive .itemText {
   display: none;
+}
+
+.menu.unactive .menuItem {
+  justify-content: flex-start;
 }
 
 .menu ul, .categories {
