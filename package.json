@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "npm start",
     "start": "npx tsx --watch --watch-preserve-output src/note-app.ts",
-    "build": "npx tsup src",
+    "build": "npx tsup src/note-app.ts",
     "dist": "node dist/note-app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
