@@ -280,6 +280,25 @@ body {
   /* outline: 1px dotted black; */
 }
 
+.btn-categories {
+  width: fit-content;
+  background-color: transparent;
+  border: none;
+}
+
+.formCategories {
+  width: 100px;
+  background-color: transparent;
+  border: 0px hidden transparent;
+  appearance: none;
+  background-color: #eee;
+  color: #333;
+}
+
+.invisible {
+  display: none;
+}
+
 @media screen and (min-width: 620px) {
   .noteList {
     justify-content: left;

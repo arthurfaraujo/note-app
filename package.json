@@ -7,10 +7,9 @@
     "node": "18"
   },
   "scripts": {
-    "dev": "npm start",
-    "start": "npx tsx --watch --watch-preserve-output src/note-app.ts",
+    "dev": "npx tsx --watch --watch-preserve-output src/note-app.ts",
+    "start": "node dist/note-app.js",
     "build": "npx tsup src/note-app.ts",
-    "dist": "node dist/note-app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "prisma": {
