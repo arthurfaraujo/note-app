@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response } from 'express'
+import { ITokenRequest } from '../interfaces/authInterfaces'
 import User from '../models/User'
 import jwt from 'jsonwebtoken'
 import { createNewUser, tryLogin } from '../services/sendEmail'
@@ -19,7 +20,6 @@ async function userCreatePost(req: Request, res: Response) {
   }
 
   await createNewUser(email)
-
 }
 
 async function userSigninGet(req: Request, res: Response) {
@@ -61,11 +61,18 @@ async function userTokenVerify(req: Request, res: Response) {
   }
 }
 
+async function userMeData(req: ITokenRequest, res: Response) {
+  const token = req.token as { nickname: string; iat: number; exp: number }
+
+  return res.json({ nickname: token.nickname })
+}
+
 export default {
   userSigninGet,
   userCreateGet,
   userCreatePost,
   userAuthenticatePost /* 
   userSignoutGet, */,
-  userTokenVerify
+  userTokenVerify,
+  userMeData
 }

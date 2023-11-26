@@ -72,6 +72,7 @@ export async function showNotes(categoryId) {
       Authorization: `Bearer ${getToken()}`
     }
   }
+
   const notes = await fetch(url, reqConfig).then(res => res.json())
 
   notes.forEach(note => {

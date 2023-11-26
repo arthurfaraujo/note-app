@@ -145,16 +145,17 @@ body {
 }
 
 .navBar .navButtons {
-  width: fit-content;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   list-style: none;
-  gap: 10px;
+  /* gap: 10px; */
+  /* background-color: #616161; */
 }
 
 .navBar .navButtons li {
-  width: 100%;
+  width: fit-content;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,9 +163,26 @@ body {
   cursor: pointer;
 }
 
-/* .navBar .navButtons li:hover {
-  transform: scale(1.15);
-} */
+.userInfo {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.userPhotoDiv {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.userPhoto {
+  width: 100%;
+  height: 100%;
+}
 
 .navBar .btn-menu {
   width: 30px;
@@ -316,7 +334,6 @@ body {
     /* z-index: 2; */
     background-color: transparent;
     box-shadow: none;
-    
   }
 
   .menu {
