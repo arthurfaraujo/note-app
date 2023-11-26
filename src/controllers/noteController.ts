@@ -1,17 +1,14 @@
 import { Request, Response } from 'express'
 import Note from '../models/Note'
 import { ITokenRequest } from '../interfaces/authInterfaces'
+import { JwtPayload } from 'jsonwebtoken'
 
 export async function noteListGet(req: Request, res: Response) {
   res.render('noteList')
 }
 
 async function noteListGetData(req: ITokenRequest, res: Response) {
-  const { nickname } = req.token as {
-    nickname: string
-    iat: number
-    exp: number
-  }
+  const { nickname } = req.token as JwtPayload
 
   const notes = await Note.readAllByUser(nickname)
 
