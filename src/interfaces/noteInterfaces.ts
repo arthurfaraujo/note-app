@@ -2,7 +2,8 @@ export interface INoteCreate {
   title: string | null
   content: string
   type: number | null
-  userNickname: string
+  userNickname: string,
+  category: number | null
 }
 
 export interface INote {
@@ -10,7 +11,8 @@ export interface INote {
   title: string | null
   content: string
   type: number | null
-  userNickname: string
+  userNickname: string,
+  categoryId: number | null
 }
 
 export interface INoteCreated {

@@ -7,7 +7,8 @@ async function create(Note: INoteCreate): Promise<INoteCreated> {
       title: Note.title || null,
       content: Note.content,
       type: Note.type,
-      userNickname: Note.userNickname
+      userNickname: Note.userNickname,
+      categoryId: Number(Note.category) || null
     }
   })
 

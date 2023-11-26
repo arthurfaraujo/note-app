@@ -1,5 +1,5 @@
 import { getToken } from './auth.js'
-import { showNotes } from './showNotes.js'
+import showNotes from './showNotes.js'
 
 const categoryList = document.body.querySelector('.categories')
 /* const categories = [
@@ -42,7 +42,6 @@ async function showCategories() {
   const categories = await fetch(url, reqConfig).then(res => res.json())
 
   categories.forEach(category => {
-    console.log(category)
     insertCategory(category)
   })
   /* categoriesTeste.forEach(category => {
