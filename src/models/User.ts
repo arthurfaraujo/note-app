@@ -29,6 +29,21 @@ async function create(User: IUser): Promise<IUserCreated> {
   }
 }
 
+async function readImages(nickname: string) {
+  const user = await prisma.user.findUnique({
+    where: { nickname },
+    select: {
+      image: {
+        select: {
+          path: true
+        }
+      }
+    }
+  })
+
+  return user
+}
+
 async function readByNickname(nickname: string): Promise<IUserFound | null> {
   const user = await prisma.user.findUnique({
     where: {
@@ -85,5 +100,6 @@ export default {
   create,
   authenticate,
   isAuthenticated,
-  readEmailByNickname
+  readEmailByNickname,
+  readImages
 }
