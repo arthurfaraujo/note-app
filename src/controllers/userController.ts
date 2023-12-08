@@ -1,6 +1,7 @@
+import { ITokenRequest } from './../interfaces/authInterfaces'
 import { Request, Response } from 'express'
-import { ITokenRequest } from '../interfaces/authInterfaces'
 import User from '../models/User'
+import Image from '../models/Image';
 import jwt from 'jsonwebtoken'
 import { createNewUser, tryLogin } from '../services/sendEmail'
 
@@ -62,9 +63,51 @@ async function userTokenVerify(req: Request, res: Response) {
 }
 
 async function userMeData(req: ITokenRequest, res: Response) {
-  const token = req.token as { nickname: string; iat: number; exp: number }
+  const { nickname } = req.token as {
+    nickname: string
+    iat: number
+    exp: number
+  }
 
-  return res.json({ nickname: token.nickname })
+  const user = await User.readImages(nickname)
+
+  res.json({ nickname, photo: user?.image?.path })
+}
+
+async function userImagePost(req: ITokenRequest, res: Response) {
+  const { nickname } = req.token as {
+    nickname: string
+    iat: number
+    exp: number
+  }
+
+  const path = `/img/user/${req.file?.filename}`
+
+  if (!path) {
+    new Error('File not found!')
+  } else {
+    const user = await Image.create({ path, userNickname: nickname })
+  }
+
+  res.json({created: true})
+}
+
+async function userImagePut(req: ITokenRequest, res: Response) {
+  const { nickname } = req.token as {
+    nickname: string
+    iat: number
+    exp: number
+  }
+
+  const path = `/img/user/${req.file?.filename}`
+
+  if (!path) {
+    new Error('File not found!')
+  } else {
+    const user = await Image.update({ path, userNickname: nickname })
+  }
+
+  res.json({updated: true})
 }
 
 export default {
@@ -74,5 +117,7 @@ export default {
   userAuthenticatePost /* 
   userSignoutGet, */,
   userTokenVerify,
-  userMeData
+  userMeData,
+  userImagePost,
+  userImagePut
 }
