@@ -14,6 +14,7 @@ model user {
   name       String
   notes      note[]
   categories category[]
+  image      image?
 }
 
 model note {
@@ -33,4 +34,11 @@ model category {
   userNickname String
   user         user   @relation(fields: [userNickname], references: [nickname])
   notes        note[]
+}
+
+model image {
+  id           Int    @id @default(autoincrement())
+  path         String
+  user         user   @relation(fields: [userNickname], references: [nickname])
+  userNickname String @unique
 }
