@@ -3,7 +3,7 @@ export interface INoteCreate {
   content: string
   type: number | null
   userNickname: string,
-  category: number | null
+  category?: number | null
 }
 
 export interface INote {
