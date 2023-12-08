@@ -10,7 +10,7 @@ POST {{host}}/signin
 Content-Type: application/json
 
 {
-    "nickname": "brunomarssinger",
+    "nickname": "devel",
     "password": "12345678"
 }
 
@@ -122,4 +122,30 @@ Content-Type: application/json
 {{host}}/notes
 Authorization: Bearer {{token}}
 
+###
+
+### Create User Image
+POST {{host}}/user/me/profile
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary="boundary"
+
+--boundary
+Content-Disposition: form-data; name="profilePhoto"; filename="devel.jpg"
+Content-Type: image/jpeg
+
+< ./public/img/user/devel.jpg
+--boundary--
+###
+
+### Update User Image
+PUT {{host}}/user/me/profile
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary="boundary"
+
+--boundary
+Content-Disposition: form-data; name="profilePhoto"; filename="lebron.jpg"
+Content-Type: image/jpeg
+
+< ./public/img/lebron.jpg
+--boundary--
 ###
