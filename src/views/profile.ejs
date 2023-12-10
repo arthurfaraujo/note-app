@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/profile.css" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <title>Notefy</title>
+  </head>
+
+  <body>
+    <%- include('partials/navBar') %>
+    <main class="container">
+      <div class="profileDiv">
+        <h1>Profile</h1>
+        <div class="profilePhotoDiv">
+          <img class="profilePhoto" src="" />
+        </div>
+        <div class="profileNameDiv">
+          <h2 class="profileName"></h2>
+        </div>
+      </div>
+      <form class="profileForm">
+        <label for="profilePhoto">New Profile Photo</label>
+        <input type="file" name="profilePhoto" />
+        <input type="submit" value="Send">
+      </form>
+    </main>
+  </body>
+  <script type="module" src="/js/profile.js"></script>
+</html>

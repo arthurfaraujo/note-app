@@ -9,8 +9,9 @@ const upload = multer(multerConfig)
 const routes = Router()
 
 // routes.get('/signout', isAuthenticated, userController.userSignoutGet)
-routes.post('/token/verify', userController.userTokenVerify)
 routes.get('/me/data', isAuthenticated, userController.userMeData)
+routes.get('/me/profile', userController.userProfileGet)
+routes.post('/token/verify', userController.userTokenVerify)
 routes.post('/me/profile', isAuthenticated, upload.single('profilePhoto'), userController.userImagePost)
 routes.put('/me/profile', isAuthenticated, upload.single('profilePhoto'), userController.userImagePut)
 

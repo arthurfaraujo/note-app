@@ -1,6 +1,6 @@
 import showNotes from './modules/showNotes.js'
 import noteSend from './modules/sendNotes.js'
-import renderUserInfo from './modules/userInfo.js'
+import { addProfileLink } from './modules/userInfo.js'
 import { isAuthenticated } from './modules/auth.js'
 import showCategories from './modules/showCategories.js'
 import showCategoriesForm from './modules/showCategoriesForm.js'
@@ -13,7 +13,7 @@ if (await isAuthenticated()) {
     showNotes(),
     showCategories(),
     showCategoriesForm(),
-    renderUserInfo()
+    addProfileLink()
   ])
 } else {
   window.location.href = '/signin'

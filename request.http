@@ -143,9 +143,9 @@ Authorization: Bearer {{token}}
 Content-Type: multipart/form-data; boundary="boundary"
 
 --boundary
-Content-Disposition: form-data; name="profilePhoto"; filename="lebron.jpg"
+Content-Disposition: form-data; name="profilePhoto"; filename="devel.jpg"
 Content-Type: image/jpeg
 
-< ./public/img/lebron.jpg
+< ./public/img/user/devel.jpg
 --boundary--
 ###

@@ -81,15 +81,15 @@ async function userImagePost(req: ITokenRequest, res: Response) {
     exp: number
   }
 
-  const path = `/img/user/${req.file?.filename}`
-
-  if (!path) {
-    new Error('File not found!')
+  
+  if (!req.file?.filename) {
+    throw new Error('File not found!')
   } else {
-    const user = await Image.create({ path, userNickname: nickname })
+    const path = `/img/user/${req.file?.filename}`
+    await Image.create({ path, userNickname: nickname })
+    res.json({created: true, photo: path})
   }
 
-  res.json({created: true})
 }
 
 async function userImagePut(req: ITokenRequest, res: Response) {
@@ -99,15 +99,19 @@ async function userImagePut(req: ITokenRequest, res: Response) {
     exp: number
   }
 
-  const path = `/img/user/${req.file?.filename}`
-
-  if (!path) {
-    new Error('File not found!')
+  if (!req.file?.filename) {
+    throw new Error('File not found!')
   } else {
-    const user = await Image.update({ path, userNickname: nickname })
+    const path = `/img/user/${req.file?.filename}`
+    console.log(path)
+    await Image.update({ path, userNickname: nickname })
+    res.json({updated: true, photo: path})
   }
 
-  res.json({updated: true})
+}
+
+async function userProfileGet(req: ITokenRequest, res: Response) {
+  res.render('profile', { profile: true})
 }
 
 export default {
@@ -119,5 +123,6 @@ export default {
   userTokenVerify,
   userMeData,
   userImagePost,
-  userImagePut
+  userImagePut,
+  userProfileGet
 }
